@@ -5,7 +5,7 @@ import ImageCarousel from '../components/ImageCarousel';
 
 export default function Home(props) {
   return (
-    <main className="grid grid-cols-2 px-20 py-32">
+    <main className="grid grid-cols-2 px-20 py-24">
       <section>
         <ImageCarousel books={props.books} />
       </section>
@@ -34,7 +34,7 @@ export default function Home(props) {
           libero justo laoreet sit amet.
         </p>
         <Link href="/products">
-          <button className="inline-block bg-[#1c1c1c] px-6 py-3 rounded-3xl font-bold transition-colors duration-500 ease-in-out hover:text-[#1c1c1c] focus:text-[#1c1c1c] hover:bg-[#3AAFA9] focus:bg-[#3AAFA9]">
+          <button className="inline-block text-[#1c1c1c] bg-[#5fe7e7] px-6 py-3 rounded-3xl font-bold transition-colors duration-500 ease-in-out hover:bg-stone-300 focus:bg-stone-300">
             Browse our library
           </button>
         </Link>

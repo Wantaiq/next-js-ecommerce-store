@@ -15,9 +15,8 @@ export default function Products({ books }) {
                   <br />
                   Sapien et ligula ullamcorper malesuada proin libero nunc.
                 </p>
-                <p className="font-bold">
-                  {book.name} - <span>{book.author}</span>
-                </p>
+                <p className="font-bold">{book.bookName}</p>
+                <p>- {book.author}</p>
               </div>
               <Link
                 data-test-id={`product-${book.id}`}
