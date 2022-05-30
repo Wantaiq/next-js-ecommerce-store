@@ -30,11 +30,23 @@ export default function Layout(props) {
         </nav>
       </header>
       {props.children}
-      <footer>
-        <div className="cookies">
-          <h1>Do you want some cookies?</h1>
-          <button>Accept</button>
-          <button>Reject</button>
+      <footer className="absolute bottom-0 w-full">
+        <div className="py-4 bg-[#3AAFA9] text-[#1c1c1c] font-bold flex flex-col justify-center items-center">
+          <h1 className="mb-4">Do you want some cookies?</h1>
+          <div className="space-x-8">
+            <button
+              className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]
+            hover:text-[#1c1c1c] hover:bg-stone-300 focus:bg-stone-300 focus:text-[#1c1c1c] transition-colors duration-500 ease-in-out"
+            >
+              Accept All
+            </button>
+            <button
+              className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]
+            hover:text-[#1c1c1c] hover:bg-stone-300 focus:bg-stone-300 focus:text-[#1c1c1c] transition-colors duration-500 ease-in-out"
+            >
+              Reject All
+            </button>
+          </div>
         </div>
       </footer>
     </>
