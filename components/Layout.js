@@ -3,9 +3,19 @@ import {
   HomeIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import HeaderItem from './HeaderItem';
 
 export default function Layout(props) {
+  const [isCookieQueryAnswered, setIsCookieQueryAnswered] = useState(false);
+
+  useEffect(() => {
+    if (getLocalStorage('areCookiesAccepted') !== null) {
+      setIsCookieQueryAnswered(true);
+    }
+    console.log(getLocalStorage('areCookiesAccepted'));
+  }, []);
   return (
     <>
       <header className="border-b-2 flex justify-between py-5 px-20 drop-shadow-xl">
@@ -30,19 +40,31 @@ export default function Layout(props) {
         </nav>
       </header>
       {props.children}
-      <footer className="absolute bottom-0 w-full">
+      <footer
+        className={`absolute bottom-0 w-full ${
+          isCookieQueryAnswered ? 'hidden' : 'block'
+        }`}
+      >
         <div className="py-4 bg-[#3AAFA9] text-[#1c1c1c] font-bold flex flex-col justify-center items-center">
           <h1 className="mb-4">Do you want some cookies?</h1>
           <div className="space-x-8">
             <button
               className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]
             hover:text-[#1c1c1c] hover:bg-stone-300 focus:bg-stone-300 focus:text-[#1c1c1c] transition-colors duration-500 ease-in-out"
+              onClick={() => {
+                setLocalStorage('areCookiesAccepted', true);
+                setIsCookieQueryAnswered(true);
+              }}
             >
               Accept All
             </button>
             <button
               className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]
             hover:text-[#1c1c1c] hover:bg-stone-300 focus:bg-stone-300 focus:text-[#1c1c1c] transition-colors duration-500 ease-in-out"
+              onClick={() => {
+                setLocalStorage('areCookiesAccepted', false);
+                setIsCookieQueryAnswered(true);
+              }}
             >
               Reject All
             </button>
