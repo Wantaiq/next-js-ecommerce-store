@@ -1,10 +1,18 @@
 import Image from 'next/image';
+import { useState } from 'react';
+import { setCookie } from '../utils/cookies';
 
-export default function Cart({ books }) {
+export default function Cart(props) {
+  const [cart, setCart] = useState(props.cart);
+  function handleDeleteItemFromCart(id) {
+    const updateCart = cart.filter((item) => item.bookId !== id);
+    setCookie('cart', updateCart);
+    setCart(updateCart);
+  }
   return (
     <div className="flex">
       <div className="w-[100] mx-auto my-20 grid grid-cols-3 gap-24 px-6">
-        {books.map((item) => {
+        {cart.map((item) => {
           return (
             <div
               key={`${item.bookPrice}-${item.bookId}`}
@@ -49,7 +57,10 @@ export default function Cart({ books }) {
                     {item.bookQuantity}
                   </span>
                 </p>
-                <button data-test-id={`cart-product-remove-${item.bookId}`}>
+                <button
+                  data-test-id={`cart-product-remove-${item.bookId}`}
+                  onClick={() => handleDeleteItemFromCart(item.bookId)}
+                >
                   Remove item
                 </button>
               </div>
@@ -58,17 +69,16 @@ export default function Cart({ books }) {
         })}
       </div>
       <div>
-        <p data-test-id="cart-product-remove-<product id>">Total price: 00</p>
+        <p data-test-id="cart-product-remove-<product id>">Total price: 0</p>
         <button>Checkout</button>
       </div>
     </div>
   );
 }
 
-export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3000/api/books');
-  const books = await response.json();
+export function getServerSideProps(context) {
+  const cartCookie = JSON.parse(context.req.cookies.cart || '[]');
   return {
-    props: { books: books },
+    props: { cart: cartCookie },
   };
 }

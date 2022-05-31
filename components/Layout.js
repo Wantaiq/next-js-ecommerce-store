@@ -9,12 +9,10 @@ import HeaderItem from './HeaderItem';
 
 export default function Layout(props) {
   const [isCookieQueryAnswered, setIsCookieQueryAnswered] = useState(false);
-
   useEffect(() => {
     if (getLocalStorage('areCookiesAccepted') !== null) {
       setIsCookieQueryAnswered(true);
     }
-    console.log(getLocalStorage('areCookiesAccepted'));
   }, []);
   return (
     <>
@@ -35,7 +33,7 @@ export default function Layout(props) {
               name="Cart"
               dataId="products-link"
             />
-            <p>quantityOfItemsInCart</p>
+            <p>0</p>
           </div>
         </nav>
       </header>
@@ -66,7 +64,7 @@ export default function Layout(props) {
                 setIsCookieQueryAnswered(true);
               }}
             >
-              Reject All
+              Allow only essential
             </button>
           </div>
         </div>

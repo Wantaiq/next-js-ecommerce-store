@@ -1,7 +1,38 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import Buttons from '../../components/Buttons';
+import { setCookie } from '../../utils/cookies';
 
 export default function Book(props) {
+  const [cart, setCart] = useState(props.cart);
+
+  function handleAddToCart(id, quantity) {
+    const itemInCart = cart.find((item) => id === item.bookId);
+    let updateCart;
+    console.log(itemInCart);
+    if (itemInCart) {
+      updateCart = cart.map((item) => {
+        return item.bookId === id
+          ? {
+              ...item,
+              bookQuantity: item.bookQuantity + quantity,
+            }
+          : item;
+      });
+    } else {
+      updateCart = [
+        ...cart,
+        {
+          bookId: id,
+          bookName: props.book.bookName,
+          bookAuthor: props.book.author,
+          bookPrice: props.book.price,
+          bookQuantity: quantity,
+        },
+      ];
+    }
+    setCookie('cart', updateCart);
+  }
   if (!props.book) {
     return (
       <div>
@@ -24,7 +55,7 @@ export default function Book(props) {
         >
           {props.book.price}
         </p>
-        <Buttons />
+        <Buttons handleAddToCart={handleAddToCart} bookId={props.book.id} />
       </div>
       <Image
         data-test-id="product-image"
@@ -42,7 +73,8 @@ export async function getServerSideProps(context) {
     `http://localhost:3000/api/book/${context.query.productId}`,
   );
   const queriedBook = await response.json();
+  const cookie = JSON.parse(context.req.cookies.cart || '[]');
   return {
-    props: { book: queriedBook },
+    props: { book: queriedBook, cart: cookie },
   };
 }
