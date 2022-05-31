@@ -60,6 +60,7 @@ export default function Cart(props) {
                 <button
                   data-test-id={`cart-product-remove-${item.bookId}`}
                   onClick={() => handleDeleteItemFromCart(item.bookId)}
+                  className="py-[.3em] px-[.9em]  rounded-full transition-colors duration-500 ease-in-out text-stone-200 bg-red-400 hover:text-stone-200 focus:text-stone-200 hover:bg-red-500 focus:bg-red-500 font-bold tracking-wide text-lg"
                 >
                   Remove item
                 </button>

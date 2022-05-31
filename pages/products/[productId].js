@@ -1,15 +1,13 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
 
 export default function Book(props) {
-  const [cart, setCart] = useState(props.cart);
+  const cart = props.cart;
 
   function handleAddToCart(id, quantity) {
     const itemInCart = cart.find((item) => id === item.bookId);
     let updateCart;
-    console.log(itemInCart);
     if (itemInCart) {
       updateCart = cart.map((item) => {
         return item.bookId === id
