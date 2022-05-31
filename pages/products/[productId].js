@@ -1,9 +1,10 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
 
 export default function Book(props) {
-  const cart = props.cart;
+  const [cart, setCart] = useState(props.cart);
 
   function handleAddToCart(id, quantity) {
     const itemInCart = cart.find((item) => id === item.bookId);
@@ -29,6 +30,7 @@ export default function Book(props) {
         },
       ];
     }
+    setCart(updateCart);
     setCookie('cart', updateCart);
   }
   if (!props.book) {

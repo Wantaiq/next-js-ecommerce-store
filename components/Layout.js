@@ -3,11 +3,13 @@ import {
   HomeIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { countStateContext } from '../context/CountProvider';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import HeaderItem from './HeaderItem';
 
 export default function Layout(props) {
+  const { totalItemQuantity } = useContext(countStateContext);
   const [isCookieQueryAnswered, setIsCookieQueryAnswered] = useState(false);
   useEffect(() => {
     if (getLocalStorage('areCookiesAccepted') !== null) {
@@ -26,14 +28,14 @@ export default function Layout(props) {
         <nav className="flex px-7 py-5 pb-0 space-x-[3em] justify-end">
           <HeaderItem path="/" icon={HomeIcon} name="Home" />
           <HeaderItem path="/products" icon={BookOpenIcon} name="Books" />
-          <div className="flex">
+          <div className="flex group">
             <HeaderItem
               path="/cart"
               icon={ShoppingCartIcon}
               name="Cart"
               dataId="products-link"
             />
-            <p>0</p>
+            <p className="group-hover:animate-bounce">{totalItemQuantity}</p>
           </div>
         </nav>
       </header>

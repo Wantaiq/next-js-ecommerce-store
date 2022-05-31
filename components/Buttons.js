@@ -1,7 +1,9 @@
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/outline';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { countStateContext } from '../context/CountProvider';
 
 export default function Buttons(props) {
+  const { handleItemQuantity } = useContext(countStateContext);
   const [bookQuantity, setBookQuantity] = useState(1);
 
   function handleIncrementQuantity() {
@@ -33,8 +35,11 @@ export default function Buttons(props) {
       <div>
         <button
           data-test-id="product-add-to-cart"
-          onClick={() => props.handleAddToCart(props.bookId, bookQuantity)}
-          className="py-[.5em] px-[1.4em]  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide text-lg"
+          onClick={() => {
+            props.handleAddToCart(props.bookId, bookQuantity);
+            handleItemQuantity();
+          }}
+          className="py-[.5em] px-[1.4em]  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] hover:bg-stone-200 font-bold tracking-wide text-lg"
         >
           Add to cart
         </button>

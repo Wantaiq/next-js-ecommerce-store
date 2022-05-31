@@ -1,13 +1,21 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { countStateContext } from '../context/CountProvider';
 import { setCookie } from '../utils/cookies';
 
 export default function Cart(props) {
   const [cart, setCart] = useState(props.cart);
+  const [totalPrice, setTotalPrice] = useState(props.totalPrice);
+  const { handleItemQuantity } = useContext(countStateContext);
+
   function handleDeleteItemFromCart(id) {
     const updateCart = cart.filter((item) => item.bookId !== id);
     setCookie('cart', updateCart);
     setCart(updateCart);
+    const updatePrice = updateCart.reduce((previousValue, currentValue) => {
+      return previousValue + currentValue.bookPrice * currentValue.bookQuantity;
+    }, 0);
+    setTotalPrice(updatePrice);
   }
   return (
     <div className="flex">
@@ -59,7 +67,10 @@ export default function Cart(props) {
                 </p>
                 <button
                   data-test-id={`cart-product-remove-${item.bookId}`}
-                  onClick={() => handleDeleteItemFromCart(item.bookId)}
+                  onClick={() => {
+                    handleDeleteItemFromCart(item.bookId);
+                    handleItemQuantity();
+                  }}
                   className="py-[.3em] px-[.9em]  rounded-full transition-colors duration-500 ease-in-out text-stone-200 bg-red-400 hover:text-stone-200 focus:text-stone-200 hover:bg-red-500 focus:bg-red-500 font-bold tracking-wide text-lg"
                 >
                   Remove item
@@ -70,7 +81,9 @@ export default function Cart(props) {
         })}
       </div>
       <div>
-        <p data-test-id="cart-product-remove-<product id>">Total price: 0</p>
+        <p data-test-id="cart-product-remove-<product id>">
+          Total price: {totalPrice}
+        </p>
         <button>Checkout</button>
       </div>
     </div>
@@ -79,7 +92,10 @@ export default function Cart(props) {
 
 export function getServerSideProps(context) {
   const cartCookie = JSON.parse(context.req.cookies.cart || '[]');
+  const totalPrice = cartCookie.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue.bookPrice * currentValue.bookQuantity;
+  }, 0);
   return {
-    props: { cart: cartCookie },
+    props: { cart: cartCookie, totalPrice: totalPrice },
   };
 }

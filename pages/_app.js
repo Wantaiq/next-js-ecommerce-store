@@ -1,11 +1,14 @@
 import '../styles/globals.css';
 import Layout from '../components/Layout';
+import CountProvider from '../context/CountProvider';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <CountProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </CountProvider>
   );
 }
 
