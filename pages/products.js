@@ -15,8 +15,10 @@ export default function Products({ books }) {
                   <br />
                   Sapien et ligula ullamcorper malesuada proin libero nunc.
                 </p>
-                <p className="font-bold">{book.bookName}</p>
-                <p>- {book.author}</p>
+                <p className="font-bold text-[#3AAFA9] tracking-wide">
+                  {book.bookName}
+                </p>
+                <p className="font-semibold tracking-wide">- {book.author}</p>
               </div>
               <Link
                 data-test-id={`product-${book.id}`}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Buttons from '../../components/Buttons';
 
 export default function Book(props) {
   if (!props.book) {
@@ -14,7 +15,7 @@ export default function Book(props) {
         <p className="text-xl font-semibold tracking-wide mb-[.5em]">
           {props.book.author}
         </p>
-        <h1 className="text-2xl font-bold tracking-wider border-b-2 pb-[1em] mb-[1em]">
+        <h1 className="text-2xl font-bold tracking-wider border-b-2 pb-[1em] mb-[1em] text-[#3AAFA9]">
           {props.book.bookName}
         </h1>
         <p
@@ -23,6 +24,7 @@ export default function Book(props) {
         >
           {props.book.price}
         </p>
+        <Buttons />
       </div>
       <Image
         data-test-id="product-image"
