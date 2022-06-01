@@ -1,11 +1,13 @@
-import Pool from 'pg-pool';
+import { config } from 'dotenv-safe';
+import postgres from 'postgres';
 
-const pool = new Pool({
-  user: process.env.PG_USER,
-  password: process.env.PG_KEY,
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
-  database: process.env.PG_NAME,
+config();
+
+const sql = postgres({
+  user: process.env.PGUSER,
+  password: process.env.PGKEY,
+  host: process.env.PGHOST,
+  database: process.env.PGNAME,
 });
 
-export default pool;
+export default sql;

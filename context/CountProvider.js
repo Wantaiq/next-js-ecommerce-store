@@ -6,9 +6,9 @@ export default function CountProvider(props) {
   const [totalItemQuantity, setTotalItemQuantity] = useState(0);
 
   function handleItemQuantity() {
-    const cart = getCookie('cart');
+    const cart = getCookie('cart') || [];
     const totalQuantity = cart.reduce((previousValue, currentValue) => {
-      return previousValue + currentValue.bookQuantity;
+      return previousValue + currentValue.quantity;
     }, 0);
     setTotalItemQuantity(totalQuantity);
   }

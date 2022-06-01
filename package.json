@@ -11,10 +11,10 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "camelcase-keys": "^7.0.2",
+    "dotenv-safe": "^8.2.0",
     "js-cookie": "^3.0.1",
     "next": "12.1.6",
-    "pg": "^8.7.3",
-    "pg-pool": "^3.5.1",
+    "postgres": "^3.2.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "sharp": "^0.30.6"

@@ -7,14 +7,17 @@ export default function Book(props) {
   const [cart, setCart] = useState(props.cart);
 
   function handleAddToCart(id, quantity) {
-    const itemInCart = cart.find((item) => id === item.bookId);
+    const itemInCart = cart.find((item) => item.id === id);
+    console.log(id, props.book.id);
+    console.log(itemInCart);
+    console.log(cart);
     let updateCart;
     if (itemInCart) {
       updateCart = cart.map((item) => {
-        return item.bookId === id
+        return item.id === id
           ? {
               ...item,
-              bookQuantity: item.bookQuantity + quantity,
+              quantity: item.quantity + quantity,
             }
           : item;
       });
@@ -22,11 +25,11 @@ export default function Book(props) {
       updateCart = [
         ...cart,
         {
-          bookId: id,
-          bookName: props.book.bookName,
-          bookAuthor: props.book.author,
-          bookPrice: props.book.price,
-          bookQuantity: quantity,
+          id: props.book.id,
+          name: props.book.bookName,
+          author: props.book.author,
+          price: props.book.price,
+          quantity: quantity,
         },
       ];
     }

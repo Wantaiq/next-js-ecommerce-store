@@ -1,5 +1,5 @@
 import camelcaseKeys from 'camelcase-keys';
-import pool from '../../utils/database';
+import sql from '../../utils/database';
 
 export default async function getAllBooks(req, res) {
   try {
@@ -7,8 +7,8 @@ export default async function getAllBooks(req, res) {
       return res.status(400).send('Method not allowed');
     }
 
-    const { rows } = await pool.query('SELECT * FROM books');
-    res.json(rows.map((item) => camelcaseKeys(item)));
+    const allBooks = await sql`SELECT * FROM books`;
+    res.json(allBooks.map((item) => camelcaseKeys(item)));
   } catch (error) {
     res.send(error.message);
   }

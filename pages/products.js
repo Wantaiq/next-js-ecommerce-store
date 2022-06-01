@@ -7,7 +7,10 @@ export default function Products({ books }) {
       <section className="grid grid-cols-2 gap-12">
         {books.map((book) => {
           return (
-            <div key={`${book.name}-${book.id}`} className="flex items-center">
+            <div
+              key={`${book.bookName}-${book.id}`}
+              className="flex items-center"
+            >
               <div className="pr-[3em] leading-6">
                 <p className="mb-[2em] font-medium">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
