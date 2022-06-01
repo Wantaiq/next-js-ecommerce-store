@@ -9,4 +9,11 @@
   .text-shadow {
     text-shadow: 1px 1px #ffffff;
   }
+  input {
+    @apply text-[#1c1c1c] font-medium tracking-wide rounded-full py-[.3em] indent-4;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
 }
