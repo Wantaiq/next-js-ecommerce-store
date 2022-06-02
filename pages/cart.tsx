@@ -1,15 +1,22 @@
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
 import { setCookie } from '../utils/cookies';
+import { CurrentCart } from './products/[productId]';
 
-export default function Cart(props) {
+type Props = {
+  totalPrice: number;
+  cart: CurrentCart[];
+};
+export default function Cart(props: Props) {
+  console.log(props);
   const [cart, setCart] = useState(props.cart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
 
-  function handleDeleteItemFromCart(id) {
+  function handleDeleteItemFromCart(id: number) {
     const updateCart = cart.filter((item) => item.id !== id);
     setCookie('cart', updateCart);
     setCart(updateCart);
@@ -101,8 +108,10 @@ export default function Cart(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const cartCookie = JSON.parse(context.req.cookies.cart || '[]');
+export function getServerSideProps(context: GetServerSidePropsContext) {
+  const cartCookie: CurrentCart[] = JSON.parse(
+    context.req.cookies.cart || '[]',
+  );
   const totalPrice = cartCookie.reduce((previousValue, currentValue) => {
     return previousValue + currentValue.price * currentValue.quantity;
   }, 0);

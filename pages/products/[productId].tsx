@@ -5,7 +5,7 @@ import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
 import { Books } from '../products';
 
-export type Cart = {
+export type CurrentCart = {
   id: number;
   name: string;
   author: string;
@@ -14,8 +14,8 @@ export type Cart = {
 };
 
 type Props = {
-  cart: Cart[];
-  book: Books;
+  cart: CurrentCart[];
+  book: Books | null;
 };
 export default function Book(props: Props) {
   const [cart, setCart] = useState(props.cart);
@@ -30,7 +30,7 @@ export default function Book(props: Props) {
   function handleAddToCart(id: number, quantity: number) {
     if (!props.book) return;
     const itemInCart = cart.find((item) => item.id === id);
-    let updateCart: Cart[];
+    let updateCart: CurrentCart[];
     if (itemInCart) {
       updateCart = cart.map((item) => {
         return item.id === id
@@ -89,7 +89,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       `http://localhost:3000/api/book/${context.query.productId}`,
     );
     const queriedBook = await response.json();
-    const cookie: Cart[] = JSON.parse(context.req.cookies.cart || '[]');
+    const cookie: CurrentCart[] = JSON.parse(context.req.cookies.cart || '[]');
     return {
       props: { book: queriedBook, cart: cookie },
     };
