@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import ImageCarousel from '../components/ImageCarousel';
+import { Books } from './products';
 
-export default function Home(props) {
+type Props = {
+  books: Books[];
+};
+export default function Home(props: Props) {
   return (
     <main className="grid grid-cols-2 px-20 py-24">
       <section>
