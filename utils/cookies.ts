@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { Cart } from '../pages/products/[productId]';
 
-export function setCookie(key: string, value: Cart) {
+export function setCookie(key: string, value: Cart[]) {
   Cookies.set(key, JSON.stringify(value));
 }
 

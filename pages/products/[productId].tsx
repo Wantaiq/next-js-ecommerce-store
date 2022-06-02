@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useState } from 'react';
 import Buttons from '../../components/Buttons';
@@ -10,14 +11,29 @@ export type Cart = {
   price: number;
   quantity: number;
 };
-export default function Book(props) {
-  const [cart, setCart] = useState(props.cart);
 
-  function handleAddToCart(id, quantity) {
+type Props = {
+  cart: Cart[];
+  book: {
+    id: number;
+    bookName: string;
+    author: string;
+    price: number;
+  } | null;
+};
+export default function Book(props: Props) {
+  const [cart, setCart] = useState(props.cart);
+  if (!props.book) {
+    return (
+      <div>
+        <h1>Product not found.</h1>
+      </div>
+    );
+  }
+
+  function handleAddToCart(id: number, quantity: number) {
+    if (!props.book) return;
     const itemInCart = cart.find((item) => item.id === id);
-    console.log(id, props.book.id);
-    console.log(itemInCart);
-    console.log(cart);
     let updateCart: Cart[];
     if (itemInCart) {
       updateCart = cart.map((item: Cart) => {
@@ -42,13 +58,6 @@ export default function Book(props) {
     }
     setCart(updateCart);
     setCookie('cart', updateCart);
-  }
-  if (!props.book) {
-    return (
-      <div>
-        <h1>Product not found.</h1>
-      </div>
-    );
   }
   return (
     <div className="flex justify-center items-center mt-[5em]">
@@ -78,13 +87,19 @@ export default function Book(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const response = await fetch(
-    `http://localhost:3000/api/book/${context.query.productId}`,
-  );
-  const queriedBook = await response.json();
-  const cookie = JSON.parse(context.req.cookies.cart || '[]');
-  return {
-    props: { book: queriedBook, cart: cookie },
-  };
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/book/${context.query.productId}`,
+    );
+    const queriedBook = await response.json();
+    const cookie: Cart[] = JSON.parse(context.req.cookies.cart || '[]');
+    return {
+      props: { book: queriedBook, cart: cookie },
+    };
+  } catch (err) {
+    if (err) {
+      return { props: { book: null } };
+    }
+  }
 }
