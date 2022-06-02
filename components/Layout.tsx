@@ -8,11 +8,15 @@ import { countStateContext } from '../context/CountProvider';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import HeaderItem from './HeaderItem';
 
-export default function Layout(props) {
+type Props = {
+  children: JSX.Element;
+};
+export default function Layout(props: Props) {
+  console.log(props);
   const { totalItemQuantity } = useContext(countStateContext);
   const [isCookieQueryAnswered, setIsCookieQueryAnswered] = useState(false);
   useEffect(() => {
-    if (getLocalStorage('areCookiesAccepted') !== null) {
+    if (getLocalStorage('areCookiesAccepted')) {
       setIsCookieQueryAnswered(true);
     }
   }, []);
