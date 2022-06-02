@@ -1,11 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Products({ books }) {
+export type Books = {
+  id: number;
+  bookName: string;
+  author: string;
+  price: number;
+};
+
+type Props = {
+  books: Books[];
+};
+
+export default function Products(props: Props) {
   return (
     <main className="products flex items-center justify-center px-14 mt-[3em]">
       <section className="grid grid-cols-2 gap-12">
-        {books.map((book) => {
+        {props.books.map((book) => {
           return (
             <div
               key={`${book.bookName}-${book.id}`}

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
+import { Books } from '../products';
 
 export type Cart = {
   id: number;
@@ -14,12 +15,7 @@ export type Cart = {
 
 type Props = {
   cart: Cart[];
-  book: {
-    id: number;
-    bookName: string;
-    author: string;
-    price: number;
-  } | null;
+  book: Books;
 };
 export default function Book(props: Props) {
   const [cart, setCart] = useState(props.cart);
