@@ -6,9 +6,11 @@ export default async function getQueriedBook(req, res) {
     res.status(400).send('Method not allowed');
   }
   try {
-    const [book] = await sql`SELECT * FROM books WHERE id = ${req.query.id}`;
+    const [book] =
+      await sql`SELECT * FROM books WHERE slug = ${req.query.slug}`;
     res.json(camelcaseKeys(book));
   } catch (error) {
     res.send(error.message);
+    console.log(error.message);
   }
 }

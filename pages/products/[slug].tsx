@@ -84,10 +84,9 @@ export default function SingleProduct(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const slug = context.query.slug;
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/book/${context.query.productId}`,
-    );
+    const response = await fetch(`http://localhost:3000/api/books/${slug}`);
     const queriedBook = await response.json();
     const cookie: CurrentCart[] = JSON.parse(context.req.cookies.cart || '[]');
     return {

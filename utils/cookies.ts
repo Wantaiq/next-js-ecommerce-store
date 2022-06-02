@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { CurrentCart } from '../pages/products/[productId]';
+import { CurrentCart } from '../pages/products/[slug]';
 
 export function setCookie(key: string, value: CurrentCart[]) {
   Cookies.set(key, JSON.stringify(value));

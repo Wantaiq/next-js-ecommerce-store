@@ -4,6 +4,7 @@ import Link from 'next/link';
 export type Book = {
   id: number;
   bookName: string;
+  slug: string;
   author: string;
   price: number;
 };
@@ -18,10 +19,7 @@ export default function Products(props: Props) {
       <section className="grid grid-cols-2 gap-12">
         {props.books.map((book) => {
           return (
-            <div
-              key={`${book.bookName}-${book.id}`}
-              className="flex items-center"
-            >
+            <div key={`${book.slug}-${book.id}`} className="flex items-center">
               <div className="pr-[3em] leading-6">
                 <p className="mb-[2em] font-medium">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -35,8 +33,8 @@ export default function Products(props: Props) {
                 <p className="font-semibold tracking-wide">- {book.author}</p>
               </div>
               <Link
-                data-test-id={`product-${book.id}`}
-                href={`./products/${book.id}`}
+                data-test-id={`product-${book.slug}`}
+                href={`./products/${book.slug}`}
               >
                 <div className="shrink-0 w-[50%] cursor-pointer">
                   <Image

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
 import { setCookie } from '../utils/cookies';
-import { CurrentCart } from './products/[productId]';
+import { CurrentCart } from './products/[slug]';
 
 type Props = {
   totalPrice: number;
@@ -27,6 +27,7 @@ export default function Cart(props: Props) {
     }, 0);
     setTotalPrice(updatePrice);
   }, [cart]);
+  console.log(cart);
   return (
     <div className="flex flex-col">
       <div className="w-[100] mx-auto my-20 grid grid-cols-2 gap-x-24 gap-y-10 px-10">
