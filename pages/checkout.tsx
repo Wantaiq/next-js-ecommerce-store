@@ -55,11 +55,7 @@ export default function Checkout() {
               />
             </div>
             <div>
-              <label
-                className="block pb-[.2em]"
-                htmlFor="lastName"
-                maxLength={30}
-              >
+              <label className="block pb-[.2em]" htmlFor="lastName">
                 Last name
               </label>
               <input
@@ -67,35 +63,30 @@ export default function Checkout() {
                 value={lastName}
                 onChange={(e) => setLastName(e.currentTarget.value)}
                 required={true}
+                maxLength={30}
               />
             </div>
           </div>
           <div className="space-y-2">
             <div className="flex space-x-4">
               <div>
-                <label
-                  className="block pb-[.2em]"
-                  htmlFor="country"
-                  maxLength={56}
-                >
+                <label className="block pb-[.2em]" htmlFor="country">
                   Country
                 </label>
                 <input
-                  htmlFor="country"
+                  id="country"
+                  maxLength={56}
                   value={country}
                   onChange={(e) => setCountry(e.currentTarget.value)}
                   required={true}
                 />
               </div>
               <div>
-                <label
-                  className="block pb-[.2em]"
-                  htmlFor="city"
-                  maxLength={85}
-                >
+                <label className="block pb-[.2em]" htmlFor="city">
                   City
                 </label>
                 <input
+                  maxLength={85}
                   id="city"
                   value={city}
                   onChange={(e) => setCity(e.currentTarget.value)}
@@ -176,7 +167,7 @@ export default function Checkout() {
                   type="tel"
                   inputMode="numeric"
                   required={true}
-                  maxLength="3"
+                  maxLength={3}
                   value={ccv}
                   onChange={(e) => setCcv(e.currentTarget.value)}
                 />
