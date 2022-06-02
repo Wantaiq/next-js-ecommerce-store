@@ -3,11 +3,15 @@ import postgres from 'postgres';
 
 config();
 
-const sql = postgres({
-  user: process.env.PGUSER,
-  password: process.env.PGKEY,
-  host: process.env.PGHOST,
-  database: process.env.PGNAME,
-});
+function connectOneTimeToDatabase() {
+  if (!globalThis.postgresSqlClient) {
+    globalThis.postgresSqlClient = postgres();
+  }
+  const sql = globalThis.postgresSqlClient;
+
+  return sql;
+}
+
+const sql = connectOneTimeToDatabase();
 
 export default sql;

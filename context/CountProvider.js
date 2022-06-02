@@ -11,6 +11,7 @@ export default function CountProvider(props) {
       return previousValue + currentValue.quantity;
     }, 0);
     setTotalItemQuantity(totalQuantity);
+    console.log('count ran');
   }
 
   useEffect(() => {

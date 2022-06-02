@@ -1,16 +1,23 @@
-import { useRef } from 'react';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useContext, useRef } from 'react';
+import { countStateContext } from '../context/CountProvider';
 
 export default function Checkout() {
+  const { handleItemQuantity } = useContext(countStateContext);
   const formRef = useRef(null);
+  // get values in state
+  // check if states are full
+  // redirect user
   function handleFormSubmit(e) {
     e.preventDefault();
-    e.key === 'Enter' && formRef.current.submit();
-    console.log('submited');
+    Cookies.remove('cart');
+    handleItemQuantity();
   }
   return (
     <div className="p-[2em] w-fit mx-auto border-2 border-[#3AAFA9] rounded-xl mt-[11px]">
       <form
-        onSubmit={(e) => handleFormSubmit(e)}
+        onSubmit={handleFormSubmit}
         ref={formRef}
         className="space-y-4 font-bold tracking-wide indent-2 flex flex-col"
       >
