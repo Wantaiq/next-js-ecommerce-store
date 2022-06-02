@@ -11,7 +11,6 @@ type Props = {
   cart: CurrentCart[];
 };
 export default function Cart(props: Props) {
-  console.log(props);
   const [cart, setCart] = useState(props.cart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
@@ -27,7 +26,6 @@ export default function Cart(props: Props) {
       return previousValue + currentValue.price * currentValue.quantity;
     }, 0);
     setTotalPrice(updatePrice);
-    console.log('i ran');
   }, [cart]);
   return (
     <div className="flex flex-col">

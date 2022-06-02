@@ -7,7 +7,6 @@ type Props = {
   bookId: number;
 };
 export default function Buttons(props: Props) {
-  console.log(props);
   const { handleItemQuantity } = useContext(countStateContext);
   const [bookQuantity, setBookQuantity] = useState(1);
 
