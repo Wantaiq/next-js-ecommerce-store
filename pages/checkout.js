@@ -15,9 +15,6 @@ export default function Checkout() {
   const [creditCardNumber, setCreditCardNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [ccv, setCcv] = useState('');
-  // get values in state
-  // check if states are full
-  // redirect user
   function handleConfirmOrder() {
     Cookies.remove('cart');
     handleItemQuantity();
