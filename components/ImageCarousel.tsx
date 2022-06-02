@@ -6,18 +6,27 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function ImageCarousel({ books }) {
+type Props = {
+  books: {
+    id: number;
+    bookName: string;
+    author: string;
+    price: number;
+  }[];
+};
+export default function ImageCarousel(props: Props) {
+  console.log(props);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === books.length - 1 ? 0 : prevSlide + 1,
+      prevSlide === props.books.length - 1 ? 0 : prevSlide + 1,
     );
-  }, [books.length]);
+  }, [props.books.length]);
 
   const previousSlide = () => {
     setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? books.length - 1 : prevSlide - 1,
+      prevSlide === 0 ? props.books.length - 1 : prevSlide - 1,
     );
   };
 
@@ -36,7 +45,7 @@ export default function ImageCarousel({ books }) {
         >
           <ArrowCircleLeftIcon className="fill-[#3AAFA9]" />
         </button>
-        {books.map((book, index) => {
+        {props.books.map((book, index) => {
           return (
             <div
               key={`${book.bookName}-${book.id}`}
@@ -53,7 +62,7 @@ export default function ImageCarousel({ books }) {
                     width="640"
                     height="463"
                     className="rounded-3xl cursor-pointer"
-                    priority="true"
+                    priority={true}
                   />
                 </div>
               </Link>
