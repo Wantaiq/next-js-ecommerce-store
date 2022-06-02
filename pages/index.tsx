@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import ImageCarousel from '../components/ImageCarousel';
-import { Books } from './products';
+import { Book } from './products';
 
 type Props = {
-  books: Books[];
+  books: Book[];
 };
 export default function Home(props: Props) {
   return (

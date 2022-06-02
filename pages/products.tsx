@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export type Books = {
+export type Book = {
   id: number;
   bookName: string;
   author: string;
@@ -9,7 +9,7 @@ export type Books = {
 };
 
 type Props = {
-  books: Books[];
+  books: Book[];
 };
 
 export default function Products(props: Props) {
