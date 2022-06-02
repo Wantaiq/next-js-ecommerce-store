@@ -12,7 +12,6 @@ type Props = {
   children: JSX.Element;
 };
 export default function Layout(props: Props) {
-  console.log(props);
   const { totalItemQuantity } = useContext(countStateContext);
   const [isCookieQueryAnswered, setIsCookieQueryAnswered] = useState(false);
   useEffect(() => {

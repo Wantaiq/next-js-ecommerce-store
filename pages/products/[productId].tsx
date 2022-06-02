@@ -36,7 +36,7 @@ export default function Book(props: Props) {
     const itemInCart = cart.find((item) => item.id === id);
     let updateCart: Cart[];
     if (itemInCart) {
-      updateCart = cart.map((item: Cart) => {
+      updateCart = cart.map((item) => {
         return item.id === id
           ? {
               ...item,

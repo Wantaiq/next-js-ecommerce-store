@@ -1,6 +1,12 @@
 import Link from 'next/link';
 
-export default function HeaderItem(props) {
+type Props = {
+  path: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  dataId?: string;
+  name: string;
+};
+export default function HeaderItem(props: Props) {
   return (
     <Link href={props.path} data-test-id={props.dataId}>
       <div className="group flex flex-col justify-center items-center cursor-pointer text-[#FEFEFE]">

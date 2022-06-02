@@ -2,7 +2,12 @@ import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { useContext, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
 
-export default function Buttons(props) {
+type Props = {
+  handleAddToCart: (id: number, quantity: number) => void;
+  bookId: number;
+};
+export default function Buttons(props: Props) {
+  console.log(props);
   const { handleItemQuantity } = useContext(countStateContext);
   const [bookQuantity, setBookQuantity] = useState(1);
 

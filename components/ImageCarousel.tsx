@@ -15,7 +15,6 @@ type Props = {
   }[];
 };
 export default function ImageCarousel(props: Props) {
-  console.log(props);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = useCallback(() => {
