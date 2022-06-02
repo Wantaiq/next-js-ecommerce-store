@@ -3,6 +3,13 @@ import { useState } from 'react';
 import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
 
+export type Cart = {
+  id: number;
+  name: string;
+  author: string;
+  price: number;
+  quantity: number;
+};
 export default function Book(props) {
   const [cart, setCart] = useState(props.cart);
 
@@ -11,9 +18,9 @@ export default function Book(props) {
     console.log(id, props.book.id);
     console.log(itemInCart);
     console.log(cart);
-    let updateCart;
+    let updateCart: Cart[];
     if (itemInCart) {
-      updateCart = cart.map((item) => {
+      updateCart = cart.map((item: Cart) => {
         return item.id === id
           ? {
               ...item,
