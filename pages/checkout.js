@@ -1,26 +1,30 @@
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import { useContext, useRef } from 'react';
+import { useContext, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
 
 export default function Checkout() {
   const { handleItemQuantity } = useContext(countStateContext);
-  const formRef = useRef(null);
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [creditCardNumber, setCreditCardNumber] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
+  const [ccv, setCcv] = useState('');
   // get values in state
   // check if states are full
   // redirect user
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleConfirmOrder() {
     Cookies.remove('cart');
     handleItemQuantity();
   }
   return (
     <div className="p-[2em] w-fit mx-auto border-2 border-[#3AAFA9] rounded-xl mt-[11px]">
-      <form
-        onSubmit={handleFormSubmit}
-        ref={formRef}
-        className="space-y-4 font-bold tracking-wide indent-2 flex flex-col"
-      >
+      <div className="space-y-4 font-bold tracking-wide indent-2 flex flex-col">
         <div className="flex flex-col space-y-2">
           <h1 className="border-b-2 pb-[1em] text-[#3AAFA9] font-bold tracking-wide">
             Contact information
@@ -28,7 +32,13 @@ export default function Checkout() {
           <label className="block pb-[.2em]" htmlFor="email">
             E-mail
           </label>
-          <input id="email" type="email" required={true} />
+          <input
+            id="email"
+            type="email"
+            required={true}
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+          />
         </div>
         <div className="shipping-info flex flex-col space-y-4">
           <h1 className="border-y-2 py-[1em] text-[#3AAFA9] font-bold tracking-wide">
@@ -39,7 +49,13 @@ export default function Checkout() {
               <label className="block pb-[.2em]" htmlFor="firstName">
                 First name
               </label>
-              <input id="firstName" required={true} maxLength={20} />
+              <input
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.currentTarget.value)}
+                required={true}
+                maxLength={20}
+              />
             </div>
             <div>
               <label
@@ -49,7 +65,12 @@ export default function Checkout() {
               >
                 Last name
               </label>
-              <input id="lastName" required={true} />
+              <input
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.currentTarget.value)}
+                required={true}
+              />
             </div>
           </div>
           <div className="space-y-2">
@@ -62,7 +83,12 @@ export default function Checkout() {
                 >
                   Country
                 </label>
-                <input htmlFor="country" required={true} />
+                <input
+                  htmlFor="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.currentTarget.value)}
+                  required={true}
+                />
               </div>
               <div>
                 <label
@@ -72,7 +98,12 @@ export default function Checkout() {
                 >
                   City
                 </label>
-                <input id="city" required={true} />
+                <input
+                  id="city"
+                  value={city}
+                  onChange={(e) => setCity(e.currentTarget.value)}
+                  required={true}
+                />
               </div>
             </div>
             <div className="flex space-x-4">
@@ -80,7 +111,12 @@ export default function Checkout() {
                 <label className="block pb-[.2em]" htmlFor="address">
                   Address
                 </label>
-                <input id="address" required={true} />
+                <input
+                  id="address"
+                  value={address}
+                  onChange={(e) => setAddress(e.currentTarget.value)}
+                  required={true}
+                />
               </div>
               <div>
                 <label className="block pb-[.2em]" htmlFor="postal-code">
@@ -92,6 +128,8 @@ export default function Checkout() {
                   inputMode="numeric"
                   pattern="^[0-9]{10}$"
                   required={true}
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.currentTarget.value)}
                 />
               </div>
             </div>
@@ -112,6 +150,8 @@ export default function Checkout() {
               maxLength={19}
               minLength={15}
               placeholder="xxxx xxxx xxxx xxxx"
+              value={creditCardNumber}
+              onChange={(e) => setCreditCardNumber(e.currentTarget.value)}
             />
             <div className="flex space-x-4">
               <div>
@@ -127,6 +167,8 @@ export default function Checkout() {
                   inputMode="numeric"
                   required={true}
                   maxLength={4}
+                  value={expirationDate}
+                  onChange={(e) => setExpirationDate(e.currentTarget.value)}
                 />
               </div>
               <div>
@@ -138,15 +180,22 @@ export default function Checkout() {
                   inputMode="numeric"
                   required={true}
                   maxLength="3"
+                  value={ccv}
+                  onChange={(e) => setCcv(e.currentTarget.value)}
                 />
               </div>
             </div>
           </div>
         </div>
-        <button className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide">
-          Confirm Order
-        </button>
-      </form>
+        <Link href="/thankYou">
+          <button
+            onClick={handleConfirmOrder}
+            className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide"
+          >
+            Confirm Order
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
