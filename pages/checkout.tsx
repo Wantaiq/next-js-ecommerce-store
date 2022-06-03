@@ -279,6 +279,10 @@ export default function Checkout() {
                       value: true,
                       message: 'This field is required',
                     },
+                    minLength: {
+                      value: 4,
+                      message: 'Minimum number of characters is 4',
+                    },
                     maxLength: {
                       value: 4,
                       message: 'Maximum number of characters is 4',
@@ -306,6 +310,10 @@ export default function Checkout() {
                     maxLength: {
                       value: 3,
                       message: 'Maximum number of characters is 3',
+                    },
+                    minLength: {
+                      value: 3,
+                      message: 'Minimum number of characters is 3',
                     },
                     required: {
                       value: true,
