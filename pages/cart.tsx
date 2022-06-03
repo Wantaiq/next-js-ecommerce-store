@@ -3,28 +3,41 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
+import { calculateTotalCartPrice, updateCart } from '../utils/cartFunctions';
 import { setCookie } from '../utils/cookies';
-import { CurrentCart } from './products/[slug]';
+import { Book } from './products';
+import { CurrentCookieCart } from './products/[slug]';
 
+type UpdatedCart = {
+  id: number;
+  bookName: string;
+  quantityBought: number;
+  slug: string;
+  author: string;
+  price: number;
+};
 type Props = {
   totalPrice: number;
-  cart: CurrentCart[];
+  cart: UpdatedCart[];
+  cookieCart: CurrentCookieCart[];
 };
+
 export default function Cart(props: Props) {
   const [cart, setCart] = useState(props.cart);
-  console.log(cart);
+  const [cookieCart, setCookieCart] = useState(props.cookieCart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
+  console.log(cart);
 
   function handleDeleteItemFromCart(id: number) {
-    const updateCart = cart.filter((item) => item.id !== id);
-    setCookie('cart', updateCart);
-    setCart(updateCart);
+    const filterCart = cookieCart.filter((item) => item.id !== id);
+    setCookie('cart', filterCart);
+    setCookieCart(filterCart);
   }
 
   useEffect(() => {
     const updatePrice = cart.reduce((previousValue, currentValue) => {
-      return previousValue + currentValue.price * currentValue.quantity;
+      return previousValue + currentValue.price * currentValue.quantityBought;
     }, 0);
     setTotalPrice(updatePrice);
   }, [cart]);
@@ -43,7 +56,7 @@ export default function Cart(props: Props) {
             >
               <div className="w-[350px] shrink-0 mr-4">
                 <Image
-                  src={`/images/${item.id}.jpg`}
+                  src={`/images/${item.slug}.jpg`}
                   width="640"
                   height="463"
                   className="rounded-3xl"
@@ -61,7 +74,7 @@ export default function Cart(props: Props) {
                 </p>
                 <p className="font-medium">Title : </p>
                 <p className="font-bold tracking-wider text-[#3AAFA9]">
-                  {item.name}
+                  {item.bookName}
                 </p>
                 <p className="font-medium">
                   Price :{' '}
@@ -73,7 +86,7 @@ export default function Cart(props: Props) {
                 >
                   Quantity :{' '}
                   <span className="font-bold tracking-wider">
-                    {item.quantity}
+                    {item.quantityBought}
                   </span>
                 </p>
                 <button
@@ -111,14 +124,21 @@ export default function Cart(props: Props) {
   );
 }
 
-export function getServerSideProps(context: GetServerSidePropsContext) {
-  const cartCookie: CurrentCart[] = JSON.parse(
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const response = await fetch('http://localhost:3000/api/books');
+  const allBooks: Book[] = await response.json();
+  const cartCookie: CurrentCookieCart[] = JSON.parse(
     context.req.cookies.cart || '[]',
   );
-  const totalPrice = cartCookie.reduce((previousValue, currentValue) => {
-    return previousValue + currentValue.price * currentValue.quantity;
-  }, 0);
+
+  const updatedCart = updateCart(cartCookie, allBooks);
+  const totalPrice = calculateTotalCartPrice(updatedCart);
+
   return {
-    props: { cart: cartCookie, totalPrice: totalPrice },
+    props: {
+      cart: updatedCart,
+      totalPrice: totalPrice,
+      cookieCart: cartCookie,
+    },
   };
 }
