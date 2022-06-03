@@ -12,6 +12,7 @@ type Props = {
 };
 export default function Cart(props: Props) {
   const [cart, setCart] = useState(props.cart);
+  console.log(cart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
 
@@ -27,7 +28,10 @@ export default function Cart(props: Props) {
     }, 0);
     setTotalPrice(updatePrice);
   }, [cart]);
-  console.log(cart);
+
+  if (cart.length < 1) {
+    return <h1>Your cart is empty</h1>;
+  }
   return (
     <div className="flex flex-col">
       <div className="w-[100] mx-auto my-20 grid grid-cols-2 gap-x-24 gap-y-10 px-10">

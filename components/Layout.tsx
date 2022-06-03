@@ -65,7 +65,7 @@ export default function Layout(props: Props) {
               className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]
             hover:text-[#1c1c1c] hover:bg-stone-300 focus:bg-stone-300 focus:text-[#1c1c1c] transition-colors duration-500 ease-in-out"
               onClick={() => {
-                setLocalStorage('areCookiesAccepted', false);
+                setLocalStorage('areCookiesAccepted', true);
                 setIsCookieQueryAnswered(true);
               }}
             >

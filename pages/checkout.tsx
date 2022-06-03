@@ -1,27 +1,50 @@
 import Cookies from 'js-cookie';
-import Link from 'next/link';
-import { useContext, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { countStateContext } from '../context/CountProvider';
 
+type FormValues = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+  city: string;
+  address: string;
+  postalCode: number;
+  creditCardNumber: number;
+  expirationDate: number;
+  ccv: number;
+};
 export default function Checkout() {
-  const { handleItemQuantity } = useContext(countStateContext);
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
-  const [address, setAddress] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [creditCardNumber, setCreditCardNumber] = useState('');
-  const [expirationDate, setExpirationDate] = useState('');
-  const [ccv, setCcv] = useState('');
-  function handleConfirmOrder() {
-    Cookies.remove('cart');
-    handleItemQuantity();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm<FormValues>();
+  const router = useRouter();
+  async function handleFormSubmit(formValues: FormValues) {
+    console.log(formValues);
+    try {
+      const isFormValid = await trigger();
+      console.log(isFormValid);
+      if (isFormValid) {
+        await router.push('/thank-you');
+        Cookies.remove('cart');
+        handleItemQuantity();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+  const { handleItemQuantity } = useContext(countStateContext);
   return (
     <div className="p-[2em] w-fit mx-auto border-2 border-[#3AAFA9] rounded-xl mt-[11px]">
-      <div className="space-y-4 font-bold tracking-wide indent-2 flex flex-col">
+      <form
+        onSubmit={handleSubmit(handleFormSubmit)}
+        className="space-y-4 font-bold tracking-wide indent-2 flex flex-col"
+      >
         <div className="flex flex-col space-y-2">
           <h1 className="border-b-2 pb-[1em] text-[#3AAFA9] font-bold tracking-wide">
             Contact information
@@ -31,11 +54,22 @@ export default function Checkout() {
           </label>
           <input
             id="email"
-            type="email"
-            required={true}
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
+            {...register('email', {
+              required: {
+                value: true,
+                message: 'This field is required',
+              },
+              pattern: {
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gm,
+                message: 'Please enter valid email',
+              },
+            })}
           />
+          {errors.email ? (
+            <span className="font-bold tracking-wide text-sm text-red-300">
+              {errors.email.message}
+            </span>
+          ) : null}
         </div>
         <div className="shipping-info flex flex-col space-y-4">
           <h1 className="border-y-2 py-[1em] text-[#3AAFA9] font-bold tracking-wide">
@@ -48,11 +82,26 @@ export default function Checkout() {
               </label>
               <input
                 id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.currentTarget.value)}
-                required={true}
-                maxLength={20}
+                {...register('firstName', {
+                  required: {
+                    value: true,
+                    message: 'This field is required',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z]+$/,
+                    message: 'Please enter valid first name',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Maximum number of characters is 20',
+                  },
+                })}
               />
+              {errors.firstName ? (
+                <p className="font-bold tracking-wide text-sm text-red-300">
+                  {errors.firstName.message}
+                </p>
+              ) : null}
             </div>
             <div>
               <label className="block pb-[.2em]" htmlFor="lastName">
@@ -60,11 +109,26 @@ export default function Checkout() {
               </label>
               <input
                 id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.currentTarget.value)}
-                required={true}
-                maxLength={30}
+                {...register('lastName', {
+                  required: {
+                    value: true,
+                    message: 'This field is required',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z]+$/,
+                    message: 'Please enter valid last name',
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: 'Maximum number of characters is 30',
+                  },
+                })}
               />
+              {errors.lastName ? (
+                <p className="font-bold tracking-wide text-sm text-red-300">
+                  {errors.lastName.message}
+                </p>
+              ) : null}
             </div>
           </div>
           <div className="space-y-2">
@@ -75,23 +139,53 @@ export default function Checkout() {
                 </label>
                 <input
                   id="country"
-                  maxLength={56}
-                  value={country}
-                  onChange={(e) => setCountry(e.currentTarget.value)}
-                  required={true}
+                  {...register('country', {
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                    maxLength: {
+                      value: 56,
+                      message: 'Maximum number of characters is 56',
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z]+$/,
+                      message: 'Please enter valid name',
+                    },
+                  })}
                 />
+                {errors.country ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.country.message}
+                  </p>
+                ) : null}
               </div>
               <div>
                 <label className="block pb-[.2em]" htmlFor="city">
                   City
                 </label>
                 <input
-                  maxLength={85}
                   id="city"
-                  value={city}
-                  onChange={(e) => setCity(e.currentTarget.value)}
-                  required={true}
+                  {...register('city', {
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                    maxLength: {
+                      value: 85,
+                      message: 'Maximum number of characters is 85',
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z]+$/,
+                      message: 'Please enter valid name',
+                    },
+                  })}
                 />
+                {errors.city ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.city.message}
+                  </p>
+                ) : null}
               </div>
             </div>
             <div className="flex space-x-4">
@@ -101,10 +195,18 @@ export default function Checkout() {
                 </label>
                 <input
                   id="address"
-                  value={address}
-                  onChange={(e) => setAddress(e.currentTarget.value)}
-                  required={true}
+                  {...register('address', {
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                  })}
                 />
+                {errors.address ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.address.message}
+                  </p>
+                ) : null}
               </div>
               <div>
                 <label className="block pb-[.2em]" htmlFor="postal-code">
@@ -112,13 +214,18 @@ export default function Checkout() {
                 </label>
                 <input
                   id="postal-code"
-                  type="number"
-                  inputMode="numeric"
-                  pattern="^[0-9]{10}$"
-                  required={true}
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.currentTarget.value)}
+                  {...register('postalCode', {
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                  })}
                 />
+                {errors.postalCode ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.postalCode.message}
+                  </p>
+                ) : null}
               </div>
             </div>
           </div>
@@ -130,17 +237,33 @@ export default function Checkout() {
               Credit card number
             </label>
             <input
-              id="credit-card-number"
-              type="tel"
-              inputMode="numeric"
-              pattern="[0-9\s]{13,19}"
-              required={true}
-              maxLength={19}
-              minLength={15}
               placeholder="xxxx xxxx xxxx xxxx"
-              value={creditCardNumber}
-              onChange={(e) => setCreditCardNumber(e.currentTarget.value)}
+              type="number"
+              inputMode="numeric"
+              {...register('creditCardNumber', {
+                pattern: {
+                  value: /^[0-9]*$/gm,
+                  message: 'Please use only numbers',
+                },
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+                maxLength: {
+                  value: 19,
+                  message: 'Maximum number of characters is 19',
+                },
+                minLength: {
+                  value: 15,
+                  message: 'Minimum number of characters is 15',
+                },
+              })}
             />
+            {errors.creditCardNumber ? (
+              <p className="font-bold tracking-wide text-sm text-red-300">
+                {errors.creditCardNumber.message}
+              </p>
+            ) : null}
             <div className="flex space-x-4">
               <div>
                 <label
@@ -151,39 +274,58 @@ export default function Checkout() {
                 </label>
                 <input
                   id="credit-card-expiration-date"
-                  type="tel"
-                  inputMode="numeric"
-                  required={true}
-                  maxLength={4}
-                  value={expirationDate}
-                  onChange={(e) => setExpirationDate(e.currentTarget.value)}
+                  {...register('expirationDate', {
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                    maxLength: {
+                      value: 4,
+                      message: 'Maximum number of characters is 4',
+                    },
+                  })}
                 />
+                {errors.expirationDate ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.expirationDate.message}
+                  </p>
+                ) : null}
               </div>
               <div>
                 <label className="block pb-[.2em]" htmlFor="credit-card-ccv">
                   CCV
                 </label>
                 <input
-                  type="tel"
+                  type="number"
                   inputMode="numeric"
-                  required={true}
-                  maxLength={3}
-                  value={ccv}
-                  onChange={(e) => setCcv(e.currentTarget.value)}
+                  {...register('ccv', {
+                    pattern: {
+                      value: /^[0-9]*$/gm,
+                      message: 'Please use only numbers',
+                    },
+                    maxLength: {
+                      value: 3,
+                      message: 'Maximum number of characters is 3',
+                    },
+                    required: {
+                      value: true,
+                      message: 'This field is required',
+                    },
+                  })}
                 />
+                {errors.ccv ? (
+                  <p className="font-bold tracking-wide text-sm text-red-300">
+                    {errors.ccv.message}
+                  </p>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
-        <Link href="/thankYou">
-          <button
-            onClick={handleConfirmOrder}
-            className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide"
-          >
-            Confirm Order
-          </button>
-        </Link>
-      </div>
+        <button className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide">
+          Confirm Order
+        </button>
+      </form>
     </div>
   );
 }
