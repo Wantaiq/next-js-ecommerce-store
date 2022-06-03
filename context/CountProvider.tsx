@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { CurrentCart } from '../pages/products/[slug]';
+import { CurrentCookieCart } from '../pages/products/[slug]';
 import { getCookie } from '../utils/cookies';
 
 type Props = {
@@ -18,7 +18,7 @@ export default function CountProvider(props: Props) {
   const [totalItemQuantity, setTotalItemQuantity] = useState(0);
 
   function handleItemQuantity() {
-    const cart: CurrentCart[] = getCookie('cart') || [];
+    const cart: CurrentCookieCart[] = getCookie('cart') || [];
     const totalQuantity = cart.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.quantity;
     }, 0);

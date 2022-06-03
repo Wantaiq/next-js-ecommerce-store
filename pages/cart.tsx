@@ -20,35 +20,35 @@ type Props = {
   totalPrice: number;
   cart: UpdatedCart[];
   cookieCart: CurrentCookieCart[];
+  books: Book[];
 };
 
 export default function Cart(props: Props) {
-  const [cart, setCart] = useState(props.cart);
+  const [currentCart, setCurrentCart] = useState(props.cart);
   const [cookieCart, setCookieCart] = useState(props.cookieCart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
-  console.log(cart);
 
   function handleDeleteItemFromCart(id: number) {
     const filterCart = cookieCart.filter((item) => item.id !== id);
+    const updateCurrentCart = updateCart(filterCart, props.books);
+    setCurrentCart(updateCurrentCart);
     setCookie('cart', filterCart);
     setCookieCart(filterCart);
   }
 
   useEffect(() => {
-    const updatePrice = cart.reduce((previousValue, currentValue) => {
-      return previousValue + currentValue.price * currentValue.quantityBought;
-    }, 0);
+    const updatePrice = calculateTotalCartPrice(currentCart);
     setTotalPrice(updatePrice);
-  }, [cart]);
+  }, [currentCart]);
 
-  if (cart.length < 1) {
+  if (currentCart.length < 1) {
     return <h1>Your cart is empty</h1>;
   }
   return (
     <div className="flex flex-col">
       <div className="w-[100] mx-auto my-20 grid grid-cols-2 gap-x-24 gap-y-10 px-10">
-        {cart.map((item) => {
+        {currentCart.map((item) => {
           return (
             <div
               key={`${item.price}-${item.id}`}
@@ -139,6 +139,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       cart: updatedCart,
       totalPrice: totalPrice,
       cookieCart: cartCookie,
+      books: allBooks,
     },
   };
 }
