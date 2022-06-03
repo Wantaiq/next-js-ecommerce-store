@@ -25,6 +25,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.17.0",
     "@next/eslint-plugin-next": "12.1.6",
+    "@types/jest": "^28.1.0",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "17.0.31",
     "@types/pg": "^8.6.5",
@@ -53,6 +54,8 @@
     "eslint-plugin-sonarjs": "0.13.0",
     "eslint-plugin-testing-library": "5.3.1",
     "eslint-plugin-unicorn": "42.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "ley": "^0.7.1",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.0.24",
