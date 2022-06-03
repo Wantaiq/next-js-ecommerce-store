@@ -76,7 +76,7 @@ export default function Products(props: Props) {
                   >
                     <div className="shrink-0 w-[50%] cursor-pointer">
                       <Image
-                        src={`/images/${book.id}.jpg`}
+                        src={`/images/${book.slug}.jpg`}
                         width="640"
                         height="463"
                         className="rounded-3xl"

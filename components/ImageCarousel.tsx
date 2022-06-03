@@ -5,14 +5,10 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { Book } from '../pages/products';
 
 type Props = {
-  books: {
-    id: number;
-    bookName: string;
-    author: string;
-    price: number;
-  }[];
+  books: Book[];
 };
 export default function ImageCarousel(props: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,10 +50,10 @@ export default function ImageCarousel(props: Props) {
                   : 'hidden'
               }
             >
-              <Link href={`products/${book.id}`}>
+              <Link href={`products/${book.slug}`}>
                 <div>
                   <Image
-                    src={`/images/${book.id}.jpg`}
+                    src={`/images/${book.slug}.jpg`}
                     width="640"
                     height="463"
                     className="rounded-3xl cursor-pointer"

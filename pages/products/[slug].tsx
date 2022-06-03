@@ -5,19 +5,18 @@ import Buttons from '../../components/Buttons';
 import { setCookie } from '../../utils/cookies';
 import { Book } from '../products';
 
-export type CurrentCart = {
+export type CurrentCookieCart = {
   id: number;
-  name: string;
-  author: string;
-  price: number;
   quantity: number;
 };
 
 type Props = {
-  cart: CurrentCart[];
+  cart: CurrentCookieCart[];
   book: Book | null;
 };
+
 export default function SingleProduct(props: Props) {
+  console.log(props.cart);
   const [cart, setCart] = useState(props.cart);
   if (!props.book) {
     return (
@@ -30,7 +29,7 @@ export default function SingleProduct(props: Props) {
   function handleAddToCart(id: number, quantity: number) {
     if (!props.book) return;
     const itemInCart = cart.find((item) => item.id === id);
-    let updateCart: CurrentCart[];
+    let updateCart: CurrentCookieCart[];
     if (itemInCart) {
       updateCart = cart.map((item) => {
         return item.id === id
@@ -45,9 +44,6 @@ export default function SingleProduct(props: Props) {
         ...cart,
         {
           id: props.book.id,
-          name: props.book.bookName,
-          author: props.book.author,
-          price: props.book.price,
           quantity: quantity,
         },
       ];
@@ -74,7 +70,7 @@ export default function SingleProduct(props: Props) {
       </div>
       <Image
         data-test-id="product-image"
-        src={`/images/${props.book.id}.jpg`}
+        src={`/images/${props.book.slug}.jpg`}
         width="640"
         height="463"
         className="rounded-3xl"
@@ -88,7 +84,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const response = await fetch(`http://localhost:3000/api/books/${slug}`);
     const queriedBook = await response.json();
-    const cookie: CurrentCart[] = JSON.parse(context.req.cookies.cart || '[]');
+    const cookie: CurrentCookieCart[] = JSON.parse(
+      context.req.cookies.cart || '[]',
+    );
     return {
       props: { book: queriedBook, cart: cookie },
     };
