@@ -19,7 +19,7 @@ export default function Products(props: Props) {
   const [searchInput, setSearchInput] = useState('');
   return (
     <main>
-      <div className="flex justify-between items-center px-20 pt-7 pb-4">
+      <div className="flex justify-between items-center px-32 pt-7 pb-4">
         <h1 className="font-bold text-3xl tracking-wider text-[#30dfd6]">
           Library
         </h1>
