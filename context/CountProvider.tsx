@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { CurrentCookieCart } from '../pages/products/[slug]';
-import { getCookie } from '../utils/cookies';
+import { getCookie } from '../util/cookies';
 
 type Props = {
   children: JSX.Element;

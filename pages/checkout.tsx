@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { countStateContext } from '../context/CountProvider';
-import { deleteCookie } from '../utils/cookies';
+import { deleteCookie } from '../util/cookies';
 
 type FormValues = {
   email: string;

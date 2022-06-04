@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
-import { calculateTotalCartPrice, updateCart } from '../utils/cartFunctions';
-import { setCookie } from '../utils/cookies';
+import { calculateTotalCartPrice, updateCart } from '../util/cartFunctions';
+import { setCookie } from '../util/cookies';
 import { Book } from './products';
 import { CurrentCookieCart } from './products/[slug]';
 

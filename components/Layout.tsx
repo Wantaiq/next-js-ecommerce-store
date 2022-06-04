@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/outline';
 import { useContext, useEffect, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { getLocalStorage, setLocalStorage } from '../util/localStorage';
 import HeaderItem from './HeaderItem';
 
 type Props = {

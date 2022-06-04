@@ -3,8 +3,8 @@ import { useContext, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
 import { Book } from '../pages/products';
 import { CurrentCookieCart } from '../pages/products/[slug]';
-import { setCookie } from '../utils/cookies';
-import { handleAddToCart } from '../utils/handleAddToCartFunction';
+import { setCookie } from '../util/cookies';
+import { handleAddToCart } from '../util/handleAddToCartFunction';
 
 type Props = {
   cookieCart: CurrentCookieCart[];
