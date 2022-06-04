@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { countStateContext } from '../context/CountProvider';
+import { deleteCookie } from '../utils/cookies';
 
 type FormValues = {
   email: string;
@@ -31,7 +32,7 @@ export default function Checkout() {
       console.log(isFormValid);
       if (isFormValid) {
         await router.push('/thank-you');
-        Cookies.remove('cart');
+        deleteCookie('cart');
         handleItemQuantity();
       }
     } catch (err) {
