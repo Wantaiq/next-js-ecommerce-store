@@ -28,6 +28,7 @@ export default function Cart(props: Props) {
   const [cookieCart, setCookieCart] = useState(props.cookieCart);
   const [totalPrice, setTotalPrice] = useState(props.totalPrice);
   const { handleItemQuantity } = useContext(countStateContext);
+  console.log(currentCart);
 
   function handleDeleteItemFromCart(id: number) {
     const filterCart = cookieCart.filter((item) => item.id !== id);
@@ -133,6 +134,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const updatedCart = updateCart(cartCookie, allBooks);
   const totalPrice = calculateTotalCartPrice(updatedCart);
+  console.log(allBooks);
 
   return {
     props: {
