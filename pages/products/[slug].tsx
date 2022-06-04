@@ -2,7 +2,6 @@ import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useState } from 'react';
 import Buttons from '../../components/Buttons';
-import { setCookie } from '../../utils/cookies';
 import { Book } from '../products';
 
 export type CurrentCookieCart = {
@@ -18,38 +17,15 @@ type Props = {
 export default function SingleProduct(props: Props) {
   console.log(props.cart);
   const [cart, setCart] = useState(props.cart);
+  function handleSetCart(value: CurrentCookieCart[]) {
+    setCart(value);
+  }
   if (!props.book) {
     return (
       <div>
         <h1>Product not found.</h1>
       </div>
     );
-  }
-
-  function handleAddToCart(id: number, quantity: number) {
-    if (!props.book) return;
-    const itemInCart = cart.find((item) => item.id === id);
-    let updateCart: CurrentCookieCart[];
-    if (itemInCart) {
-      updateCart = cart.map((item) => {
-        return item.id === id
-          ? {
-              ...item,
-              quantity: item.quantity + quantity,
-            }
-          : item;
-      });
-    } else {
-      updateCart = [
-        ...cart,
-        {
-          id: props.book.id,
-          quantity: quantity,
-        },
-      ];
-    }
-    setCart(updateCart);
-    setCookie('cart', updateCart);
   }
   return (
     <div className="flex justify-center items-center mt-[5em]">
@@ -66,7 +42,12 @@ export default function SingleProduct(props: Props) {
         >
           {props.book.price}
         </p>
-        <Buttons handleAddToCart={handleAddToCart} bookId={props.book.id} />
+        <Buttons
+          cookieCart={cart}
+          queriedBook={props.book}
+          bookId={props.book.id}
+          handleSetCart={handleSetCart}
+        />
       </div>
       <Image
         data-test-id="product-image"

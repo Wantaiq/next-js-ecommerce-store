@@ -1,10 +1,16 @@
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { useContext, useState } from 'react';
 import { countStateContext } from '../context/CountProvider';
+import { Book } from '../pages/products';
+import { CurrentCookieCart } from '../pages/products/[slug]';
+import { setCookie } from '../utils/cookies';
+import { handleAddToCart } from '../utils/handleAddToCartFunction';
 
 type Props = {
-  handleAddToCart: (id: number, quantity: number) => void;
+  cookieCart: CurrentCookieCart[];
   bookId: number;
+  queriedBook: Book;
+  handleSetCart: (param: CurrentCookieCart[]) => void;
 };
 export default function Buttons(props: Props) {
   const { handleItemQuantity } = useContext(countStateContext);
@@ -18,6 +24,18 @@ export default function Buttons(props: Props) {
     bookQuantity <= 1
       ? setBookQuantity(1)
       : setBookQuantity((prevQuantity) => prevQuantity - 1);
+  }
+
+  function updateCurrentCookieCart() {
+    const updatedCart = handleAddToCart(
+      props.bookId,
+      bookQuantity,
+      props.queriedBook,
+      props.cookieCart,
+    );
+    if (!updatedCart) return;
+    props.handleSetCart(updatedCart);
+    setCookie('cart', updatedCart);
   }
 
   return (
@@ -40,7 +58,7 @@ export default function Buttons(props: Props) {
         <button
           data-test-id="product-add-to-cart"
           onClick={() => {
-            props.handleAddToCart(props.bookId, bookQuantity);
+            updateCurrentCookieCart();
             handleItemQuantity();
           }}
           className="py-[.5em] px-[1.4em]  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] hover:bg-stone-200 font-bold tracking-wide text-lg"
