@@ -2,6 +2,20 @@ import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000';
 test.only('basic page interaction test', async ({ page }) => {
+  function calculateTotalPrice(
+    firstItem: string | number,
+    secondItem: string | number,
+    firstItemQuantity: number,
+    secondItemQuantity: number,
+  ) {
+    console.log(firstItem, secondItem);
+    const convertFirstParamToNumber = Number(firstItem);
+    const convertSecondParamToNumber = Number(secondItem);
+    const total =
+      convertFirstParamToNumber * firstItemQuantity +
+      convertSecondParamToNumber * secondItemQuantity;
+    return total.toString();
+  }
   const singleProductsLocators = {
     price: 'data-test-id=product-price',
     img: 'data-test-id=product-image',
@@ -51,6 +65,9 @@ test.only('basic page interaction test', async ({ page }) => {
   await expect(page.locator(singleProductsLocators.quantity)).toBeVisible();
   await expect(page.locator(singleProductsLocators.quantity)).toHaveText(/1/);
   await expect(page.locator(singleProductsLocators.price)).toBeVisible();
+  const firstItemPrice = await page
+    .locator(singleProductsLocators.price)
+    .innerText();
   await expect(page.locator(singleProductsLocators.addToCart)).toBeVisible();
   await page.locator(singleProductsLocators.addToCart).click();
   await expect(page.locator(headerLocators.cartCount)).toHaveText(/1/);
@@ -66,6 +83,9 @@ test.only('basic page interaction test', async ({ page }) => {
   await expect(page.locator(singleProductsLocators.quantity)).toBeVisible();
   await expect(page.locator(singleProductsLocators.quantity)).toHaveText(/1/);
   await expect(page.locator(singleProductsLocators.price)).toBeVisible();
+  const secondItemPrice = await page
+    .locator(singleProductsLocators.price)
+    .innerText();
   await expect(page.locator(singleProductsLocators.addToCart)).toBeVisible();
   await page.locator(singleProductsLocators.addToCart).click();
   await expect(page.locator(headerLocators.cartCount)).toHaveText(/3/);
@@ -91,6 +111,9 @@ test.only('basic page interaction test', async ({ page }) => {
   await expect(
     page.locator(`${cartLocators.removeButton}your-soul-is-a-river`),
   ).toBeVisible();
+  await expect(page.locator(cartLocators.totalPrice)).toHaveText(
+    calculateTotalPrice(firstItemPrice, secondItemPrice, 2, 1),
+  );
   await page.locator(`${cartLocators.removeButton}eat-beautiful`).click();
   await expect(page.locator(headerLocators.cartCount)).toHaveText(/1/);
   await expect(
@@ -102,7 +125,9 @@ test.only('basic page interaction test', async ({ page }) => {
   await expect(
     page.locator(`${cartLocators.removeButton}eat-beautiful`),
   ).not.toBeVisible();
-  await expect(page.locator(cartLocators.totalPrice)).toHaveText(/37/);
+  await expect(page.locator(cartLocators.totalPrice)).toHaveText(
+    secondItemPrice,
+  );
   await page.locator(cartLocators.checkoutButton).click();
   await page.waitForNavigation({ url: urls.checkout });
   await page.type(checkoutLocators.email, 'John Doe');
