@@ -41,7 +41,7 @@ export default function Buttons(props: Props) {
   return (
     <div className="flex flex-col justify-center space-y-5">
       <div className="flex">
-        <button onClick={handleIncrementQuantity}>
+        <button onClick={handleIncrementQuantity} data-test-id="increment">
           <PlusCircleIcon className="w-7 h-7 active:stroke-[#3AAFA9]" />
         </button>
         <p
@@ -50,7 +50,7 @@ export default function Buttons(props: Props) {
         >
           {bookQuantity}
         </p>
-        <button onClick={handleDecrementQuantity}>
+        <button onClick={handleDecrementQuantity} data-test-id="decrement">
           <MinusCircleIcon className="w-7 h-7 active:stroke-red-400" />
         </button>
       </div>

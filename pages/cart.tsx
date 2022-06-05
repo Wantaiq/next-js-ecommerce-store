@@ -81,12 +81,12 @@ export default function Cart(props: Props) {
                   Price :{' '}
                   <span className="font-bold tracking-wider">{item.price}</span>
                 </p>
-                <p
-                  data-test-id={`cart-product-quantity-${item.slug}`}
-                  className="font-medium"
-                >
+                <p className="font-medium">
                   Quantity :{' '}
-                  <span className="font-bold tracking-wider">
+                  <span
+                    data-test-id={`cart-product-quantity-${item.slug}`}
+                    className="font-bold tracking-wider"
+                  >
                     {item.quantityBought}
                   </span>
                 </p>
@@ -106,11 +106,8 @@ export default function Cart(props: Props) {
         })}
       </div>
       <div className="mx-auto flex space-x-4 items-center">
-        <p
-          data-test-id="cart-total"
-          className="font-bold tracking-wide text-lg"
-        >
-          Total price: <span>{totalPrice}</span>
+        <p className="font-bold tracking-wide text-lg">
+          Total price: <span data-test-id="cart-total">{totalPrice}</span>
         </p>
         <Link href="/checkout">
           <button

@@ -1,14 +1,13 @@
 import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000';
-test.only('basic page interaction test', async ({ page }) => {
+test('basic page interaction test', async ({ page }) => {
   function calculateTotalPrice(
     firstItem: string | number,
     secondItem: string | number,
     firstItemQuantity: number,
     secondItemQuantity: number,
   ) {
-    console.log(firstItem, secondItem);
     const convertFirstParamToNumber = Number(firstItem);
     const convertSecondParamToNumber = Number(secondItem);
     const total =
