@@ -7,6 +7,7 @@ type Props = {
   name: string;
 };
 export default function HeaderItem(props: Props) {
+  console.log(props.icon);
   return (
     <div data-test-id={props.dataId}>
       <Link href={props.path}>
