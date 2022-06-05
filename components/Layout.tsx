@@ -30,15 +30,22 @@ export default function Layout(props: Props) {
 
         <nav className="flex px-7 py-5 pb-0 space-x-[3em] justify-end">
           <HeaderItem path="/" icon={HomeIcon} name="Home" />
-          <HeaderItem path="/products" icon={BookOpenIcon} name="Books" />
+          <HeaderItem
+            path="/products"
+            dataId="products-link"
+            icon={BookOpenIcon}
+            name="Books"
+          />
           <div className="flex group">
             <HeaderItem
               path="/cart"
               icon={ShoppingCartIcon}
               name="Cart"
-              dataId="products-link"
+              dataId="cart-link"
             />
-            <p className="group-hover:animate-bounce">{totalItemQuantity}</p>
+            <p className="group-hover:animate-bounce" data-test-id="cart-count">
+              {totalItemQuantity}
+            </p>
           </div>
         </nav>
       </header>
@@ -49,7 +56,7 @@ export default function Layout(props: Props) {
         }`}
       >
         <div className="py-4 bg-[#3AAFA9] text-[#1c1c1c] font-bold flex flex-col justify-center items-center">
-          <h1 className="mb-4">Do you want some cookies?</h1>
+          <h2 className="mb-4 text-lg">Do you want some cookies?</h2>
           <div className="space-x-8">
             <button
               className="font-semibold tracking-wide py-[.4em] px-[2em] bg-[#1c1c1c] text-stone-200 rounded-[25px]

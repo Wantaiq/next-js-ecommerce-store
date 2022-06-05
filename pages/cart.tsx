@@ -64,7 +64,7 @@ export default function Cart(props: Props) {
                 />
               </div>
               <div
-                data-test-id={`cart-product-${item.id}`}
+                data-test-id={`cart-product-${item.slug}`}
                 className="w-[200px] space-y-2 tracking-wide text-lg shrink-0 py-2"
               >
                 <p className="font-medium">
@@ -82,7 +82,7 @@ export default function Cart(props: Props) {
                   <span className="font-bold tracking-wider">{item.price}</span>
                 </p>
                 <p
-                  data-test-id={`cart-product-quantity-${item.id}`}
+                  data-test-id={`cart-product-quantity-${item.slug}`}
                   className="font-medium"
                 >
                   Quantity :{' '}
@@ -91,7 +91,7 @@ export default function Cart(props: Props) {
                   </span>
                 </p>
                 <button
-                  data-test-id={`cart-product-remove-${item.id}`}
+                  data-test-id={`cart-product-remove-${item.slug}`}
                   onClick={() => {
                     handleDeleteItemFromCart(item.id);
                     handleItemQuantity();

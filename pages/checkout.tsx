@@ -53,6 +53,7 @@ export default function Checkout() {
             E-mail
           </label>
           <input
+            data-test-id="checkout-email"
             id="email"
             {...register('email', {
               required: {
@@ -66,7 +67,10 @@ export default function Checkout() {
             })}
           />
           {errors.email ? (
-            <span className="font-bold tracking-wide text-sm text-red-300">
+            <span
+              data-test-id="error-email"
+              className="font-bold tracking-wide text-sm text-red-300"
+            >
               {errors.email.message}
             </span>
           ) : null}
@@ -81,6 +85,7 @@ export default function Checkout() {
                 First name
               </label>
               <input
+                data-test-id="checkout-first-name"
                 id="firstName"
                 {...register('firstName', {
                   required: {
@@ -108,6 +113,7 @@ export default function Checkout() {
                 Last name
               </label>
               <input
+                data-test-id="checkout-last-name"
                 id="lastName"
                 {...register('lastName', {
                   required: {
@@ -138,6 +144,7 @@ export default function Checkout() {
                   Country
                 </label>
                 <input
+                  data-test-id="checkout-country"
                   id="country"
                   {...register('country', {
                     required: {
@@ -165,6 +172,7 @@ export default function Checkout() {
                   City
                 </label>
                 <input
+                  data-test-id="checkout-city"
                   id="city"
                   {...register('city', {
                     required: {
@@ -194,6 +202,7 @@ export default function Checkout() {
                   Address
                 </label>
                 <input
+                  data-test-id="checkout-address"
                   id="address"
                   {...register('address', {
                     required: {
@@ -213,6 +222,7 @@ export default function Checkout() {
                   Postal code
                 </label>
                 <input
+                  data-test-id="checkout-postal-code"
                   id="postal-code"
                   {...register('postalCode', {
                     required: {
@@ -237,6 +247,7 @@ export default function Checkout() {
               Credit card number
             </label>
             <input
+              data-test-id="checkout-credit-card"
               placeholder="xxxx xxxx xxxx xxxx"
               type="number"
               inputMode="numeric"
@@ -273,6 +284,7 @@ export default function Checkout() {
                   Expiration date
                 </label>
                 <input
+                  data-test-id="checkout-expiration-date"
                   id="credit-card-expiration-date"
                   {...register('expirationDate', {
                     required: {
@@ -300,6 +312,7 @@ export default function Checkout() {
                   CCV
                 </label>
                 <input
+                  data-test-id="checkout-security-code"
                   type="number"
                   inputMode="numeric"
                   {...register('ccv', {
@@ -330,7 +343,10 @@ export default function Checkout() {
             </div>
           </div>
         </div>
-        <button className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide">
+        <button
+          data-test-id="checkout-confirm-order"
+          className="py-[.45em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide"
+        >
           Confirm Order
         </button>
       </form>

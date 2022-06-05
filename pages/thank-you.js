@@ -1,3 +1,3 @@
 export default function ThankYou() {
-  return <h1>Thanks</h1>;
+  return <h1>Thank you for your order</h1>;
 }
