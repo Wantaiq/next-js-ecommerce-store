@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000';
 
-test.only('adding, and removing items from cart test', async ({ page }) => {
+test('adding, and removing items from cart test', async ({ page }) => {
   const singleProductsLocators = {
     price: 'data-test-id=product-price',
     img: 'data-test-id=product-image',
