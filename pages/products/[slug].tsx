@@ -15,7 +15,6 @@ type Props = {
 };
 
 export default function SingleProduct(props: Props) {
-  console.log(props.cart);
   const [cart, setCart] = useState(props.cart);
   function handleSetCart(value: CurrentCookieCart[]) {
     setCart(value);

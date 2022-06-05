@@ -25,10 +25,8 @@ export default function Checkout() {
   } = useForm<FormValues>();
   const router = useRouter();
   async function handleFormSubmit(formValues: FormValues) {
-    console.log(formValues);
     try {
       const isFormValid = await trigger();
-      console.log(isFormValid);
       if (isFormValid) {
         await router.push('/thank-you');
         deleteCookie('cart');
