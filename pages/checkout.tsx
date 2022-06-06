@@ -4,17 +4,17 @@ import { useForm } from 'react-hook-form';
 import { countStateContext } from '../context/CountProvider';
 import { deleteCookie } from '../util/cookies';
 
-type FormValues = {
+export type FormValues = {
   email: string;
   firstName: string;
   lastName: string;
   country: string;
   city: string;
   address: string;
-  postalCode: number;
-  creditCardNumber: number;
-  expirationDate: number;
-  ccv: number;
+  postalCode: string;
+  creditCardNumber: string;
+  expirationDate: string;
+  ccv: string;
 };
 export default function Checkout() {
   const {
@@ -25,16 +25,24 @@ export default function Checkout() {
   } = useForm<FormValues>();
   const router = useRouter();
   async function handleFormSubmit(formValues: FormValues) {
-    console.log(formValues);
     try {
+      const response = await fetch(
+        'http://localhost:3000/api/validation/form',
+        {
+          method: 'POST',
+          // headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formValues),
+        },
+      );
+      const data = await response.json();
       const isFormValid = await trigger();
-      if (isFormValid) {
+      if (isFormValid && data === 'Form is valid') {
         await router.push('/thank-you');
         deleteCookie('cart');
         handleItemQuantity();
       }
     } catch (err) {
-      console.log(err);
+      alert('Something went wrong');
     }
   }
   const { handleItemQuantity } = useContext(countStateContext);
