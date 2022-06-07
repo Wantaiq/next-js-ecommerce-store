@@ -13,8 +13,7 @@ export default function validateForm(
     try {
       await schema.validate(req.body, { stripUnknown: true });
     } catch (error) {
-      console.log(error);
-      return res.status(400).json(error);
+      return res.status(400).send('Form is not valid');
     }
     await handler(req, res);
   };
