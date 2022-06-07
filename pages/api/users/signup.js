@@ -9,8 +9,8 @@ export default async function loginHandler(req, res) {
   try {
     const hash = await bcrypt.hash(req.body.password, 10);
     await sql`INSERT INTO
-  users (
-    username, pwd)
+    users (
+      username, pwd)
     VALUES(${req.body.userName}, ${hash})`;
   } catch (err) {
     res.status(400).send('Username already exists.');

@@ -5,9 +5,10 @@ export default async function handleLogin(req, res) {
   if (req.method !== 'POST') {
     res.status(400).send('Method not allowed');
   }
-  const users = await sql`SELECT * from users`;
-  const currentUser = users.find((user) => user.username === req.body.userName);
-  if (currentUser === undefined) {
+  const [currentUser] =
+    await sql`SELECT * from users WHERE username = ${req.body.userName}`;
+  console.log(currentUser);
+  if (typeof currentUser === 'undefined') {
     res.status(400).send('Cannot find user.');
     return;
   }
