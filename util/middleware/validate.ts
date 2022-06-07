@@ -11,10 +11,10 @@ export default function validateForm(
       return;
     }
     try {
-      const parsedBody = JSON.parse(req.body);
-      await schema.validate(parsedBody, { stripUnknown: true });
+      await schema.validate(req.body, { stripUnknown: true });
     } catch (error) {
-      return res.status(400).send(error);
+      console.log(error);
+      return res.status(400).json(error);
     }
     await handler(req, res);
   };
