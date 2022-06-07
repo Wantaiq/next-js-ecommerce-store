@@ -11,7 +11,7 @@ export default async function loginHandler(req, res) {
     await sql`INSERT INTO
     users (
       username, pwd)
-    VALUES(${req.body.userName}, ${hash})`;
+    VALUES(${req.body.username}, ${hash})`;
   } catch (err) {
     res.status(400).send('Username already exists.');
   }
