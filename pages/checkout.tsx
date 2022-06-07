@@ -30,7 +30,7 @@ export default function Checkout() {
         'http://localhost:3000/api/validation/form',
         {
           method: 'POST',
-          // headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues),
         },
       );
@@ -42,7 +42,7 @@ export default function Checkout() {
         handleItemQuantity();
       }
     } catch (err) {
-      alert('Something went wrong');
+      window.alert('Something went wrong');
     }
   }
   const { handleItemQuantity } = useContext(countStateContext);
