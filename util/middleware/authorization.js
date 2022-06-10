@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 export function auth(handler) {
   return function (req, res) {
     jwt.verify(
-      req.headers.authorization,
+      req.cookies.authorization,
       process.env.ACCESS_TOKEN_SECRET,
       async (err, decoded) => {
         if (!err && decoded) {
