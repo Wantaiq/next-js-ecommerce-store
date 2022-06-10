@@ -1,7 +1,6 @@
 import {
   BookOpenIcon,
   HomeIcon,
-  LockClosedIcon,
   LoginIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
@@ -49,12 +48,6 @@ export default function Layout(props: Props) {
               {totalItemQuantity}
             </p>
           </div>
-          <HeaderItem
-            path="/admin"
-            name="Restricted"
-            dataId="user-admin"
-            icon={LockClosedIcon}
-          />
           <HeaderItem
             path="/login"
             name="Login"
