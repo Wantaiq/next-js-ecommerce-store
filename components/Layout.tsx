@@ -1,6 +1,8 @@
 import {
   BookOpenIcon,
   HomeIcon,
+  LockClosedIcon,
+  LoginIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
 import { useContext, useEffect, useState } from 'react';
@@ -34,7 +36,7 @@ export default function Layout(props: Props) {
             path="/products"
             dataId="products-link"
             icon={BookOpenIcon}
-            name="Books"
+            name="Library"
           />
           <div className="flex group">
             <HeaderItem
@@ -47,6 +49,19 @@ export default function Layout(props: Props) {
               {totalItemQuantity}
             </p>
           </div>
+          <HeaderItem
+            path="/admin"
+            name="Restricted"
+            dataId="user-admin"
+            icon={LockClosedIcon}
+          />
+          <HeaderItem
+            path="/login"
+            name="Login"
+            dataId="user-login"
+            icon={LoginIcon}
+          />
+          <HeaderItem path="/register" name="Sign up" dataId="user-signup" />
         </nav>
       </header>
       {props.children}

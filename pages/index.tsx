@@ -36,9 +36,9 @@ export default function Home(props: Props) {
           libero justo laoreet sit amet.
         </p>
         <Link href="/products">
-          <button className="inline-block text-[#1c1c1c] bg-[#3AAFA9] px-6 py-3 rounded-3xl font-bold transition-colors duration-500 ease-in-out hover:bg-stone-300 focus:bg-stone-300">
+          <a className="inline-block text-[#1c1c1c] bg-[#3AAFA9] px-6 py-3 rounded-3xl font-bold transition-colors duration-500 ease-in-out hover:bg-stone-300 focus:bg-stone-300">
             Browse our library
-          </button>
+          </a>
         </Link>
       </section>
     </main>

@@ -1,19 +1,21 @@
 import bcrypt from 'bcrypt';
 import sql from '../../../util/database';
 
-export default function loginHandler(req, res) {
+export default async function loginHandler(req, res) {
+  const parsedBody = JSON.parse(req.body);
   if (req.method !== 'POST') {
     res.status(400).send('Method not allowed');
     return;
   }
   try {
-    bcrypt.hash(req.body.password, 10, async (err, hash) => {
-      await sql`INSERT INTO
+    const hashPassword = await bcrypt.hash(parsedBody.password, 10);
+    await sql`INSERT INTO
       users (
-      username, pwd)
-      VALUES(${req.body.username}, ${hash})`;
-    });
-  } catch (err) {
-    res.status(400).send('Username already exists.');
+      username, pwd, userRole)
+      VALUES(${parsedBody.username}, ${hashPassword}, "user")`;
+  } catch (error) {
+    if (error) {
+      res.status(400).json({ message: 'Username already exists' });
+    }
   }
 }

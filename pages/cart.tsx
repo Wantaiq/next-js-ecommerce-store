@@ -109,12 +109,12 @@ export default function Cart(props: Props) {
           Total price: <span data-test-id="cart-total">{totalPrice}</span>
         </p>
         <Link href="/checkout">
-          <button
+          <a
             data-test-id="checkout"
             className="py-[.5em] px-[2em] text-base  rounded-full transition-colors duration-500 ease-in-out text-[#1c1c1c] bg-[#3AAFA9] hover:text-[#3AAFA9] focus:text-[#3AAFA9] hover:bg-stone-200 focus:bg-stone-200 font-bold tracking-wide"
           >
             Checkout
-          </button>
+          </a>
         </Link>
       </div>
     </div>

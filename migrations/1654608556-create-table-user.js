@@ -3,7 +3,8 @@ exports.up = async (sql) => {
 		CREATE TABLE users(
 		id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 		username VARCHAR(30) NOT NULL UNIQUE,
-		pwd VARCHAR(60) NOT NULL
+		pwd VARCHAR(60) NOT NULL,
+		user_role VARCHAR(50) NOT NULL
 		 )`;
 };
 

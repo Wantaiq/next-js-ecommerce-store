@@ -20,26 +20,29 @@ export default function Checkout() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
     trigger,
   } = useForm<FormValues>();
   const router = useRouter();
   async function handleFormSubmit(formValues: FormValues) {
     try {
-      const response = await fetch(
-        'http://localhost:3000/api/validation/form',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formValues),
-        },
-      );
-      const data = await response.json();
       const isFormValid = await trigger();
-      if (isFormValid && data === 'Form is valid') {
-        await router.push('/thank-you');
-        deleteCookie('cart');
-        handleItemQuantity();
+      if (isFormValid) {
+        const response = await fetch(
+          'http://localhost:3000/api/validation/form',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formValues),
+          },
+        );
+        const data = await response.json();
+        if (isFormValid && data === 'Form is valid') {
+          await router.push('/thank-you');
+          deleteCookie('cart');
+          handleItemQuantity();
+        }
       }
     } catch (err) {
       window.alert('Something went wrong');
@@ -52,7 +55,7 @@ export default function Checkout() {
         onSubmit={handleSubmit(handleFormSubmit)}
         className="space-y-4 font-bold tracking-wide indent-2 flex flex-col"
       >
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 text-lg">
           <h1 className="border-b-2 pb-[1em] text-[#3AAFA9] font-bold tracking-wide">
             Contact information
           </h1>
@@ -74,12 +77,12 @@ export default function Checkout() {
             })}
           />
           {errors.email ? (
-            <span
+            <p
               data-test-id="error-email"
               className="font-bold tracking-wide text-sm text-red-300"
             >
               {errors.email.message}
-            </span>
+            </p>
           ) : null}
         </div>
         <div className="shipping-info flex flex-col space-y-4">
