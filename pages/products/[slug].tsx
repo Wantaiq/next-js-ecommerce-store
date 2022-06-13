@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import Buttons from '../../components/Buttons';
@@ -27,35 +28,45 @@ export default function SingleProduct(props: Props) {
     );
   }
   return (
-    <div className="flex justify-center items-center mt-[5em]">
-      <div className="p-[5em]">
-        <p className="text-xl font-semibold tracking-wide mb-[.5em]">
-          {props.book.author}
-        </p>
-        <h1 className="text-2xl font-bold tracking-wider border-b-2 pb-[1em] mb-[1em] text-[#3AAFA9]">
-          {props.book.bookName}
-        </h1>
-        <p
-          data-test-id="product-price"
-          className="font-bold text-2xl mb-[.5em]"
-        >
-          {props.book.price}
-        </p>
-        <Buttons
-          cookieCart={cart}
-          queriedBook={props.book}
-          bookId={props.book.id}
-          handleSetCart={handleSetCart}
+    <>
+      <Head>
+        <title>{props.book.bookName}</title>
+        <meta
+          name="description"
+          content={`Mock store ${props.book.bookName}`}
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="flex justify-center items-center mt-[5em]">
+        <div className="p-[5em]">
+          <p className="text-xl font-semibold tracking-wide mb-[.5em]">
+            {props.book.author}
+          </p>
+          <h1 className="text-2xl font-bold tracking-wider border-b-2 pb-[1em] mb-[1em] text-[#3AAFA9]">
+            {props.book.bookName}
+          </h1>
+          <p
+            data-test-id="product-price"
+            className="font-bold text-2xl mb-[.5em]"
+          >
+            {props.book.price}
+          </p>
+          <Buttons
+            cookieCart={cart}
+            queriedBook={props.book}
+            bookId={props.book.id}
+            handleSetCart={handleSetCart}
+          />
+        </div>
+        <Image
+          data-test-id="product-image"
+          src={`/images/${props.book.slug}.jpg`}
+          width="640"
+          height="463"
+          className="rounded-3xl"
         />
       </div>
-      <Image
-        data-test-id="product-image"
-        src={`/images/${props.book.slug}.jpg`}
-        width="640"
-        height="463"
-        className="rounded-3xl"
-      />
-    </div>
+    </>
   );
 }
 
