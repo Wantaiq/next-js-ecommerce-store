@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest # or macos-latest, windows-latest
     env:
       PGHOST: ${{secrets.PGHOST}}
-      PGNAME: ${{secrets.PGNAME}}
-      PGUSER: ${{secrets.PGUSER}}
+      PGDATABASE: ${{secrets.PGNAME}}
+      PGUSERNAME: ${{secrets.PGUSER}}
       PGPASSWORD: ${{secrets.PGPASSWORD}}
 
     steps:
