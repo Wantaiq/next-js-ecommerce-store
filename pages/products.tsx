@@ -93,7 +93,9 @@ export default function Products(props: Props) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3000/api/books');
+  const response = await fetch(
+    'https://next-js-ecommerce-mock.herokuapp.com/api/books',
+  );
   const data = await response.json();
 
   return {

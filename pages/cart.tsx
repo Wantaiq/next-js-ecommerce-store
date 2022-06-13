@@ -133,7 +133,9 @@ export default function Cart(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const response = await fetch('http://localhost:3000/api/books');
+  const response = await fetch(
+    'https://next-js-ecommerce-mock.herokuapp.com/api/books',
+  );
   const allBooks: Book[] = await response.json();
   const cartCookie: CurrentCookieCart[] = JSON.parse(
     context.req.cookies.cart || '[]',
