@@ -1,5 +1,5 @@
 import camelcaseKeys from 'camelcase-keys';
-import sql from '../../util/database';
+import sql from '../../../util/database';
 
 export default async function getAllBooks(req, res) {
   if (req.method !== 'GET') {

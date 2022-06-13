@@ -20,7 +20,6 @@ export default function Checkout() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
     trigger,
   } = useForm<FormValues>();
@@ -38,7 +37,7 @@ export default function Checkout() {
           },
         );
         const data = await response.json();
-        if (isFormValid && data === 'Form is valid') {
+        if (data === 'Form is valid') {
           await router.push('/thank-you');
           deleteCookie('cart');
           handleItemQuantity();

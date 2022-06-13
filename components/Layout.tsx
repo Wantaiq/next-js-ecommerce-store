@@ -1,7 +1,6 @@
 import {
   BookOpenIcon,
   HomeIcon,
-  LoginIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
 import { useContext, useEffect, useState } from 'react';
@@ -48,13 +47,6 @@ export default function Layout(props: Props) {
               {totalItemQuantity}
             </p>
           </div>
-          <HeaderItem
-            path="/login"
-            name="Login"
-            dataId="user-login"
-            icon={LoginIcon}
-          />
-          <HeaderItem path="/register" name="Sign up" dataId="user-signup" />
         </nav>
       </header>
       {props.children}
