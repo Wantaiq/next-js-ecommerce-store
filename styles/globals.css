@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  #__next {
+    height: 100vh;
+  }
   body {
     @apply bg-[#1c1c1c] text-slate-200;
   }

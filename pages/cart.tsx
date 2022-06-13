@@ -43,7 +43,18 @@ export default function Cart(props: Props) {
   }, [currentCart]);
 
   if (currentCart.length < 1) {
-    return <h1>Your cart is empty</h1>;
+    return (
+      <div className="flex flex-col items-center justify-center space-y-10">
+        <h1 className="text-center font-extrabold tracking-wide mt-32 text-2xl">
+          Your cart is empty
+        </h1>
+        <Link href="/products">
+          <a className="inline-block text-[#1c1c1c] bg-[#3AAFA9] px-6 py-3 rounded-3xl font-bold transition-colors duration-500 ease-in-out hover:bg-stone-300 focus:bg-stone-300">
+            Browse our library
+          </a>
+        </Link>
+      </div>
+    );
   }
   return (
     <div className="flex flex-col">
