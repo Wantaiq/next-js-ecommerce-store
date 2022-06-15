@@ -81,7 +81,7 @@ export default function Products(props: Props) {
                       </p>
                     </div>
                     <div className="shrink-0 w-[50%] cursor-pointer">
-                      <Link href={`/products/${book.slug}`}>
+                      <Link href={`/products/${book.slug}`} passHref>
                         <a data-test-id={`product-${book.slug}`}>
                           <Image
                             src={`/images/${book.slug}.jpg`}
@@ -90,6 +90,7 @@ export default function Products(props: Props) {
                             className="rounded-3xl"
                             priority
                           />
+                          <div>{book.bookName}</div>
                         </a>
                       </Link>
                     </div>
