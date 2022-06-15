@@ -81,17 +81,16 @@ export default function Products(props: Props) {
                       </p>
                     </div>
                     <div className="shrink-0 w-[50%] cursor-pointer">
-                      <Link href={`./products/${book.slug}`} passHref>
-                        <a data-test-id={`product-${book.slug}`}>
-                          <Image
-                            src={`/images/${book.slug}.jpg`}
-                            width="640"
-                            height="463"
-                            className="rounded-3xl"
-                            priority
-                          />
-                        </a>
+                      <Link href={`./products/${book.slug}`}>
+                        <a data-test-id={`product-${book.slug}`}>To book</a>
                       </Link>
+                      <Image
+                        src={`/images/${book.slug}.jpg`}
+                        width="640"
+                        height="463"
+                        className="rounded-3xl"
+                        priority
+                      />
                     </div>
                   </div>
                 );
