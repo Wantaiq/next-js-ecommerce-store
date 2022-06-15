@@ -50,6 +50,7 @@ export default function Buttons(props: Props) {
       </div>
       <div className="flex flex-col space-y-5">
         <input
+          data-test-id="product-quantity"
           className="py-2 text-center font-bold w-fit"
           type="number"
           value={bookQuantity}

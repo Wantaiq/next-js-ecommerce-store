@@ -18,7 +18,6 @@ test('basic page interaction test', async ({ page }) => {
   const singleProductsLocators = {
     price: 'data-test-id=product-price',
     img: 'data-test-id=product-image',
-    quantity: 'data-test-id=product-quantity',
     addToCart: 'data-test-id=product-add-to-cart',
   };
   const cartLocators = {
@@ -61,8 +60,6 @@ test('basic page interaction test', async ({ page }) => {
   await page.locator('a[data-test-id=product-eat-beautiful]').click();
   await page.waitForNavigation({ url: `${urls.products}/eat-beautiful` });
   await expect(page.locator(singleProductsLocators.img)).toBeVisible();
-  await expect(page.locator(singleProductsLocators.quantity)).toBeVisible();
-  await expect(page.locator(singleProductsLocators.quantity)).toHaveText(/1/);
   await expect(page.locator(singleProductsLocators.price)).toBeVisible();
   const firstItemPrice = await page
     .locator(singleProductsLocators.price)
@@ -79,8 +76,6 @@ test('basic page interaction test', async ({ page }) => {
     url: `${urls.products}/your-soul-is-a-river`,
   });
   await expect(page.locator(singleProductsLocators.img)).toBeVisible();
-  await expect(page.locator(singleProductsLocators.quantity)).toBeVisible();
-  await expect(page.locator(singleProductsLocators.quantity)).toHaveText(/1/);
   await expect(page.locator(singleProductsLocators.price)).toBeVisible();
   const secondItemPrice = await page
     .locator(singleProductsLocators.price)
