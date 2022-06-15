@@ -80,17 +80,19 @@ export default function Products(props: Props) {
                         - {book.author}
                       </p>
                     </div>
-                    <Link href={`/products/${book.slug}`}>
-                      <a data-test-id={`product-${book.slug}`}>
-                        <Image
-                          src={`/images/${book.slug}.jpg`}
-                          width="640"
-                          height="463"
-                          className="rounded-3xl"
-                        />
-                        <div>{book.bookName}</div>
-                      </a>
-                    </Link>
+                    <div className="w-[50%] cursor-pointer">
+                      <Link href={`/products/${book.slug}`}>
+                        <a data-test-id={`product-${book.slug}`}>
+                          <Image
+                            src={`/images/${book.slug}.jpg`}
+                            width="640"
+                            height="463"
+                            className="rounded-3xl"
+                          />
+                          <div>{book.bookName}</div>
+                        </a>
+                      </Link>
+                    </div>
                   </div>
                 );
               })}
