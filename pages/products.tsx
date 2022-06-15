@@ -89,7 +89,6 @@ export default function Products(props: Props) {
                             height="463"
                             className="rounded-3xl"
                           />
-                          <div>{book.bookName}</div>
                         </a>
                       </Link>
                     </div>
