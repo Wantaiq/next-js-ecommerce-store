@@ -40,21 +40,25 @@ export default function Buttons(props: Props) {
 
   return (
     <div className="flex flex-col justify-center space-y-5">
-      <div className="flex">
+      <div className="flex justify-center space-x-8">
         <button onClick={handleIncrementQuantity} data-test-id="increment">
           <PlusCircleIcon className="w-7 h-7 active:stroke-[#3AAFA9]" />
         </button>
-        <p
-          data-test-id="product-quantity"
-          className="font-semibold text-3xl my-[.5em] mx-6"
-        >
-          {bookQuantity}
-        </p>
         <button onClick={handleDecrementQuantity} data-test-id="decrement">
           <MinusCircleIcon className="w-7 h-7 active:stroke-red-400" />
         </button>
       </div>
-      <div>
+      <div className="flex flex-col space-y-5">
+        <input
+          className="py-2 text-center font-bold w-fit"
+          type="number"
+          value={bookQuantity}
+          onInput={(e) => {
+            if (e.currentTarget.value) {
+              setBookQuantity(Number(e.currentTarget.value));
+            }
+          }}
+        />
         <button
           data-test-id="product-add-to-cart"
           onClick={() => {
