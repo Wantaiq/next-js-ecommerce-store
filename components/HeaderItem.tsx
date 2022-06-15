@@ -10,7 +10,7 @@ export default function HeaderItem(props: Props) {
   return (
     <div data-test-id={props.dataId}>
       <Link href={props.path}>
-        <a href={props.path}>
+        <a>
           <div className="group flex flex-col justify-center items-center cursor-pointer text-[#FEFEFE]">
             {props.icon && (
               <props.icon className="w-7 h-7 group-hover:animate-bounce" />

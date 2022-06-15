@@ -80,8 +80,8 @@ export default function Products(props: Props) {
                         - {book.author}
                       </p>
                     </div>
-                    <Link href={`./products/${book.slug}`}>
-                      <div className="shrink-0 w-[50%] cursor-pointer">
+                    <div className="shrink-0 w-[50%] cursor-pointer">
+                      <Link href={`./products/${book.slug}`}>
                         <a data-test-id={`product-${book.slug}`}>
                           <Image
                             src={`/images/${book.slug}.jpg`}
@@ -91,8 +91,8 @@ export default function Products(props: Props) {
                             priority
                           />
                         </a>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
                 );
               })}
