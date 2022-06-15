@@ -88,7 +88,6 @@ export default function Products(props: Props) {
                             width="640"
                             height="463"
                             className="rounded-3xl"
-                            priority
                           />
                           <div>{book.bookName}</div>
                         </a>
