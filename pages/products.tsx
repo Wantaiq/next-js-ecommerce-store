@@ -80,7 +80,7 @@ export default function Products(props: Props) {
                         - {book.author}
                       </p>
                     </div>
-                    <div className="w-[50%] cursor-pointer">
+                    <div className="w-[50%] cursor-pointer shrink-0">
                       <Link href={`/products/${book.slug}`}>
                         <a data-test-id={`product-${book.slug}`}>
                           <Image

@@ -122,8 +122,9 @@ test('basic page interaction test', async ({ page }) => {
   await expect(page.locator(cartLocators.totalPrice)).toHaveText(
     secondItemPrice,
   );
-  await page.locator(cartLocators.checkoutButton).click();
-  await page.waitForNavigation({ url: 'http://localhost:3000/checkout' });
+
+  // await page.waitForNavigation({ url: 'http://localhost:3000/checkout' });
+
   //   await page.type(checkoutLocators.email, 'John Doe');
   //   await page.type(checkoutLocators.firstName, 'John');
   //   await page.type(checkoutLocators.lastName, 'Doe');
