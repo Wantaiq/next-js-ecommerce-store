@@ -123,7 +123,7 @@ test('basic page interaction test', async ({ page }) => {
     secondItemPrice,
   );
   await page.locator(cartLocators.checkoutButton).click();
-  await page.waitForNavigation({ url: urls.checkout });
+  await page.waitForNavigation({ url: 'http://localhost:3000/checkout' });
   //   await page.type(checkoutLocators.email, 'John Doe');
   //   await page.type(checkoutLocators.firstName, 'John');
   //   await page.type(checkoutLocators.lastName, 'Doe');
