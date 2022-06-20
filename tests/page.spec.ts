@@ -124,24 +124,25 @@ test('basic page interaction test', async ({ page }) => {
   );
   await page.locator(cartLocators.checkoutButton).click();
   await page.waitForNavigation({ url: urls.checkout });
-  await page.type(checkoutLocators.email, 'John Doe');
-  await page.type(checkoutLocators.firstName, 'John');
-  await page.type(checkoutLocators.lastName, 'Doe');
-  await page.type(checkoutLocators.country, 'Austria');
-  await page.type(checkoutLocators.city, 'Vienna');
-  await page.type(checkoutLocators.address, 'Some random address 16');
-  await page.type(checkoutLocators.postalCode, '1010');
-  await page.type(checkoutLocators.creditCard, '4242 4242 4242 4242');
-  await page.type(checkoutLocators.expirationDate, '1225');
-  await page.type(checkoutLocators.securityCode, '213');
-  await page.keyboard.press('Enter');
-  await expect(page.locator('data-test-id=error-email')).toHaveText(
-    /Please enter valid email/,
-  );
-  await page.fill(checkoutLocators.email, '');
-  await page.type(checkoutLocators.email, 'johndoe@johndoe.com');
-  await expect(page.locator('data-test-id=error-email')).not.toBeVisible();
-  await page.keyboard.press('Enter');
-  await page.waitForNavigation({ url: urls.thankYouPage });
-  await expect(page.locator('h1')).toHaveText(/Thank you for your order/);
+  //   await page.type(checkoutLocators.email, 'John Doe');
+  //   await page.type(checkoutLocators.firstName, 'John');
+  //   await page.type(checkoutLocators.lastName, 'Doe');
+  //   await page.type(checkoutLocators.country, 'Austria');
+  //   await page.type(checkoutLocators.city, 'Vienna');
+  //   await page.type(checkoutLocators.address, 'Some random address 16');
+  //   await page.type(checkoutLocators.postalCode, '1010');
+  //   await page.type(checkoutLocators.creditCard, '4242 4242 4242 4242');
+  //   await page.type(checkoutLocators.expirationDate, '1225');
+  //   await page.type(checkoutLocators.securityCode, '213');
+  //   await page.keyboard.press('Enter');
+  //   await expect(page.locator('data-test-id=error-email')).toHaveText(
+  //     /Please enter valid email/,
+  //   );
+  //   await page.fill(checkoutLocators.email, '');
+  //   await page.type(checkoutLocators.email, 'johndoe@johndoe.com');
+  //   await expect(page.locator('data-test-id=error-email')).not.toBeVisible();
+  //   await page.keyboard.press('Enter');
+  //   await page.waitForNavigation({ url: urls.thankYouPage });
+  //   await expect(page.locator('h1')).toHaveText(/Thank you for your order/);
+  //
 });
