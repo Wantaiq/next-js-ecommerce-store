@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const baseUrl = 'http://localhost:3000';
-test('basic page interaction test', async ({ page }) => {
+test.only('basic page interaction test', async ({ page }) => {
   function calculateTotalPrice(
     firstItem: string | number,
     secondItem: string | number,
@@ -123,8 +123,11 @@ test('basic page interaction test', async ({ page }) => {
     secondItemPrice,
   );
 
-  // await page.waitForNavigation({ url: 'http://localhost:3000/checkout' });
+  await page.locator(cartLocators.checkoutButton).click();
 
+  await page.waitForNavigation({ url: 'http://localhost:3000/checkout' });
+
+  await expect(page.locator(checkoutLocators.email)).toBeVisible();
   //   await page.type(checkoutLocators.email, 'John Doe');
   //   await page.type(checkoutLocators.firstName, 'John');
   //   await page.type(checkoutLocators.lastName, 'Doe');
